@@ -6,6 +6,7 @@
   const $ = (selector, root = document) => root.querySelector(selector);
   const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let scrollToSection = null;
 
   const ICONS = {
     menu: '<path d="M4 7h16M4 12h16M4 17h16"/>',
@@ -573,11 +574,193 @@
     values.forEach((node) => observer.observe(node));
   }
 
+  function initSectionNav() {
+    const sections = $$("main > section[id]");
+    const rail = $("#sectionRail");
+    const header = $("#siteHeader");
+    if (!rail || !sections.length || !header) return;
+
+    const labels = {
+      inicio: "Inicio",
+      impacto: "Impacto",
+      perfil: "Perfil",
+      experiencia: "Experiencia",
+      stack: "Stack",
+      proyectos: "Proyectos",
+      formacion: "Formación",
+      actividad: "Actividad",
+      contacto: "Contacto"
+    };
+    const railItems = sections.map((section) => `
+      <a href="#${section.id}" data-section-link="${section.id}" aria-label="${escapeHtml(labels[section.id] || section.id)}">
+        <span class="rail-label">${escapeHtml(labels[section.id] || section.id)}</span><i></i>
+      </a>
+    `).join("");
+
+    rail.innerHTML = `
+      <button class="rail-step" type="button" data-section-step="-1" aria-label="Pantalla anterior" title="Pantalla anterior">${icon("arrowUp")}</button>
+      <div class="rail-list">${railItems}</div>
+      <button class="rail-step" type="button" data-section-step="1" aria-label="Pantalla siguiente" title="Pantalla siguiente">${icon("arrowDown")}</button>
+      <span class="rail-hint" aria-hidden="true" title="Usa ↑ y ↓ para avanzar por pantalla">↑↓</span>
+    `;
+
+    const railLinks = $$("[data-section-link]", rail);
+    const navLinks = $$(".main-nav a, .mobile-menu a");
+    let activeId = "inicio";
+    let navigationTarget = null;
+    let navigationTimer;
+    let ticking = false;
+
+    const setActive = (id) => {
+      activeId = id;
+      const updateLink = (link) => {
+        const match = link.getAttribute("href") === `#${id}`;
+        link.classList.toggle("is-active", match);
+        if (match) link.setAttribute("aria-current", "location");
+        else link.removeAttribute("aria-current");
+      };
+      navLinks.forEach(updateLink);
+      railLinks.forEach(updateLink);
+    };
+
+    const anchorTop = (section) => {
+      if (section.id === "inicio") return 0;
+      const content = section.querySelector(".section-heading, .about-lead, .contact-content") || section;
+      return Math.max(0, Math.round(content.getBoundingClientRect().top + window.scrollY - header.offsetHeight - 18));
+    };
+
+    const buildStops = () => {
+      const viewport = window.innerHeight;
+      const headerHeight = header.offsetHeight;
+      const step = Math.max(420, viewport - headerHeight - 110);
+      const maxScroll = Math.max(0, document.documentElement.scrollHeight - viewport);
+      const stops = [];
+
+      sections.forEach((section, index) => {
+        const start = Math.min(anchorTop(section), maxScroll);
+        stops.push({ y: start, id: section.id });
+
+        if (section.offsetHeight > viewport * 1.2) {
+          const next = sections[index + 1];
+          const nextStart = next ? anchorTop(next) : document.documentElement.scrollHeight;
+          let y = start + step;
+          while (y < nextStart - 90 && y < maxScroll) {
+            stops.push({ y, id: section.id });
+            y += step;
+          }
+        }
+      });
+
+      const footer = $(".site-footer");
+      if (footer) {
+        const footerTop = Math.min(
+          Math.max(0, Math.round(footer.getBoundingClientRect().top + window.scrollY - headerHeight - 18)),
+          maxScroll
+        );
+        if (!stops.some((stop) => Math.abs(stop.y - footerTop) < 40)) {
+          stops.push({ y: footerTop, id: "contacto" });
+        }
+      }
+
+      return stops
+        .filter((stop, index, all) => index === 0 || Math.abs(stop.y - all[index - 1].y) > 12)
+        .sort((a, b) => a.y - b.y);
+    };
+
+    const stepThrough = (direction, behavior = "smooth") => {
+      const stops = buildStops();
+      const position = window.scrollY;
+      const stop = direction > 0
+        ? stops.find((item) => item.y > position + 34)
+        : [...stops].reverse().find((item) => item.y < position - 34);
+      if (!stop) return;
+      navigationTarget = stop.id;
+      clearTimeout(navigationTimer);
+      window.scrollTo({ top: stop.y, behavior: reduceMotion ? "auto" : behavior });
+      setActive(stop.id);
+      if (window.history?.replaceState) window.history.replaceState(null, "", `#${stop.id}`);
+      navigationTimer = setTimeout(() => {
+        navigationTarget = null;
+        setActive(sectionAtScroll());
+      }, behavior === "auto" ? 80 : 1000);
+    };
+
+    const sectionAtScroll = () => {
+      const marker = window.scrollY + header.offsetHeight + 80;
+      let current = sections[0].id;
+      for (const section of sections) {
+        if (section.offsetTop <= marker) current = section.id;
+        else break;
+      }
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) {
+        current = sections[sections.length - 1].id;
+      }
+      return current;
+    };
+
+    const updateFromScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        if (!navigationTarget) setActive(sectionAtScroll());
+        ticking = false;
+      });
+    };
+
+    scrollToSection = (id, behavior = "smooth") => {
+      const section = document.getElementById(id);
+      if (!section || !sections.some((item) => item.id === id)) return;
+      navigationTarget = id;
+      clearTimeout(navigationTimer);
+      window.scrollTo({ top: anchorTop(section), behavior: reduceMotion ? "auto" : behavior });
+      setActive(id);
+      if (window.history?.replaceState) window.history.replaceState(null, "", `#${id}`);
+      navigationTimer = setTimeout(() => {
+        navigationTarget = null;
+        setActive(sectionAtScroll());
+      }, behavior === "auto" ? 80 : 1000);
+    };
+
+    document.addEventListener("click", (event) => {
+      const link = event.target.closest('a[href^="#"]');
+      if (!link) return;
+      const id = link.getAttribute("href").slice(1);
+      if (!sections.some((section) => section.id === id)) return;
+      event.preventDefault();
+      scrollToSection(id);
+    });
+
+    rail.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-section-step]");
+      if (!button) return;
+      stepThrough(Number(button.dataset.sectionStep));
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+      if (event.key !== "ArrowDown" && event.key !== "ArrowUp") return;
+      if ($("dialog[open]")) return;
+      const focused = document.activeElement;
+      if (focused && (["INPUT", "TEXTAREA", "SELECT"].includes(focused.tagName) || focused.isContentEditable)) return;
+      event.preventDefault();
+      stepThrough(event.key === "ArrowDown" ? 1 : -1);
+    });
+
+    window.addEventListener("scroll", updateFromScroll, { passive: true });
+    window.addEventListener("resize", updateFromScroll);
+    setActive(sectionAtScroll());
+
+    if (location.hash) {
+      const id = location.hash.slice(1);
+      if (sections.some((section) => section.id === id)) {
+        requestAnimationFrame(() => scrollToSection(id, "auto"));
+      }
+    }
+  }
+
   function initHeader() {
     const header = $("#siteHeader");
     const progress = $("#scrollProgress");
-    const links = $$(".main-nav a");
-    const sections = links.map((link) => $(link.getAttribute("href"))).filter(Boolean);
 
     const updateScroll = () => {
       const top = window.scrollY;
@@ -587,16 +770,6 @@
     };
     window.addEventListener("scroll", updateScroll, { passive: true });
     updateScroll();
-
-    if ("IntersectionObserver" in window) {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          links.forEach((link) => link.classList.toggle("is-active", link.getAttribute("href") === `#${entry.target.id}`));
-        });
-      }, { rootMargin: "-25% 0px -62% 0px", threshold: 0 });
-      sections.forEach((section) => observer.observe(section));
-    }
 
     const menu = $("#mobileMenu");
     const toggle = $("#menuToggle");
@@ -686,8 +859,8 @@
       const tag = document.activeElement?.tagName;
       if (event.key === "/" && !["INPUT", "TEXTAREA", "SELECT"].includes(tag)) {
         event.preventDefault();
-        $("#stackSearch").focus();
-        $("#stack").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+        scrollToSection?.("stack");
+        $("#stackSearch").focus({ preventScroll: true });
       }
     });
     $("#copyEmail").addEventListener("click", copyEmail);
@@ -715,6 +888,7 @@
     initActivity();
     initFlow();
     initHeader();
+    initSectionNav();
     initMotionToggle();
     initRotating();
     initKeyboard();

@@ -2101,8 +2101,10 @@ ol {
 .ring-inner span:nth-child(3) { top: 50%; right: 0; transform: translateY(-50%); }
 
 .hex-core {
-  position: relative;
+  position: absolute;
   z-index: 2;
+  top: 50%;
+  left: 50%;
   display: flex;
   width: 40%;
   aspect-ratio: 1;
@@ -2113,25 +2115,33 @@ ol {
   border-radius: 50%;
   background: #0c141b;
   box-shadow: 0 0 32px rgba(163, 230, 53, 0.06), inset 0 0 20px rgba(163, 230, 53, 0.03);
+  text-align: center;
+  transform: translate(-50%, -50%);
 }
 
 .hex-core svg {
-  width: 18px;
-  height: 18px;
+  width: 19px;
+  height: 19px;
   color: var(--lime);
 }
 
 .hex-core strong {
-  margin-top: 4px;
-  font-size: 1rem;
+  margin-top: 3px;
+  font-size: 1.03rem;
+  line-height: 1;
   letter-spacing: -0.04em;
 }
 
 .hex-core small {
+  position: absolute;
+  right: 0;
+  bottom: 9px;
+  left: 0;
   color: var(--muted);
   font-family: var(--font-mono);
   font-size: 0.4rem;
   letter-spacing: 0.05em;
+  line-height: 1;
 }
 
 .flow-caption {
@@ -6409,7 +6419,7 @@ window.ACTIVITY_DATA = [
               <span class="flow-node node-ports" title="Contratos entre el dominio y el exterior">PUERTOS</span>
               <span class="flow-node node-usecase" title="Acción de negocio coordinada">CASO DE USO</span>
             </div>
-            <div class="hex-core flow-node" id="flowCore" title="Reglas y modelos del negocio"><span data-icon="box"></span><strong>DDD</strong><small>reglas de negocio</small></div>
+            <div class="hex-core flow-node" id="flowCore" title="Reglas y modelos del negocio"><span data-icon="box"></span><strong>DDD</strong></div>
           </div>
           <div class="flow-caption" aria-live="polite" aria-atomic="true">
             <span class="flow-step-count" id="flowStepCount">6 PASOS · 6 SEGUNDOS</span>

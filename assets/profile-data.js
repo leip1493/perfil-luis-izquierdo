@@ -1,0 +1,1000 @@
+window.PROFILE_DATA = {
+  "meta": {
+    "name": "Luis Enrique Izquierdo Peña",
+    "shortName": "Luis Izquierdo",
+    "role": "Senior Software Engineer",
+    "headline": "Node.js • NestJS • TypeScript | Arquitectura de software | IA agéntica y sistemas multi-tenant escalables",
+    "location": "Venezuela",
+    "workMode": "Remoto para equipos LATAM",
+    "availability": "Abierto a nuevas oportunidades",
+    "years": 8,
+    "linkedin": "https://www.linkedin.com/in/luis-enrique-izquierdo-pe%C3%B1a/",
+    "github": "https://github.com/leip1493",
+    "email": "leip1493@gmail.com",
+    "followers": 824,
+    "connections": "Más de 500",
+    "photo": "assets/images/profile.jpg",
+    "updated": "24 de noviembre de 2026"
+  },
+  "hero": {
+    "kicker": "Senior Software Engineer · Arquitectura · IA agéntica",
+    "title": "No solo escribo código.",
+    "accent": "Diseño sistemas",
+    "summary": "Más de 8 años construyendo backends robustos, escalables y tolerantes a fallos en Fintech, banca digital, retail y SaaS. Especialista en Domain-Driven Design, arquitectura hexagonal, TDD y sistemas multi-tenant que sostienen operaciones críticas.",
+    "rotating": [
+      "Arquitectura hexagonal",
+      "Backends que escalan",
+      "IA agéntica con criterio",
+      "Liderazgo técnico"
+    ]
+  },
+  "stats": [
+    {
+      "value": 8,
+      "suffix": "+",
+      "label": "años de experiencia",
+      "detail": "Fintech, banca, retail y SaaS"
+    },
+    {
+      "value": 90,
+      "suffix": "%+",
+      "label": "cobertura de pruebas",
+      "detail": "TDD como estándar de calidad"
+    },
+    {
+      "value": 60,
+      "suffix": "+",
+      "label": "squads impactados",
+      "detail": "Plataforma multi-tenant del grupo"
+    },
+    {
+      "value": 80,
+      "suffix": "",
+      "label": "integraciones en producción",
+      "detail": "Backoffice Manager en operación"
+    }
+  ],
+  "about": {
+    "lead": "En términos simples: construyo la lógica y las reglas de negocio que sostienen productos digitales, y diseño la arquitectura para que varios equipos puedan evolucionarlos sin romper lo que ya funciona.",
+    "paragraphs": [
+      "Mi trabajo combina arquitectura, backend y liderazgo técnico. Diseño la base sobre la que otros equipos construyen, lidero migraciones, reviso propuestas con pruebas de concepto (POCs) y acompaño a otros desarrolladores en sus decisiones técnicas.",
+      "En los últimos años impulsé IA en el desarrollo con criterio de ingeniería, no como una moda sin proceso: primero se escribe una especificación clara, después se genera código con agentes y finalmente una persona revisa el resultado. Los tests, las reglas del proyecto y el contexto compartido son lo que hacen que eso sea confiable.",
+      "Trabajo remoto desde Venezuela para equipos de LATAM. Español nativo e inglés técnico. Me interesa especialmente la intersección entre arquitectura, plataformas, observabilidad e ingeniería agéntica: construir sistemas que otros equipos puedan entender, operar y mejorar."
+    ],
+    "principles": [
+      {
+        "icon": "layers",
+        "title": "El dominio primero",
+        "text": "DDD y arquitectura hexagonal para aislar el negocio de la tecnología y hacer que el cambio sea posible."
+      },
+      {
+        "icon": "test",
+        "title": "Tests como contrato",
+        "text": "TDD para validar casos de uso, documentar intención y obtener cobertura como consecuencia, no como objetivo."
+      },
+      {
+        "icon": "spark",
+        "title": "IA con criterio",
+        "text": "Agentes que amplifican el juicio humano: especificación previa, contexto acotado y validación objetiva."
+      },
+      {
+        "icon": "users",
+        "title": "Liderazgo técnico",
+        "text": "Arquitectura que otros equipos pueden entender, operar y extender. Mentoría, RFCs, POCs y decisiones compartidas."
+      }
+    ],
+    "quote": "Si entiendes la arquitectura, el lenguaje pesa menos."
+  },
+  "impactContext": {
+    "label": "EL ESCENARIO",
+    "title": "¿De dónde salen estos resultados?",
+    "body": "Durante casi dos años trabajé en Backoffice Core, el equipo de itti que construyó el backoffice interno del Grupo Vázquez: la plataforma desde la que empleados de Ueno Bank y otras empresas del grupo administran módulos, roles, permisos y configuraciones. BOMA fue la primera versión para Ueno Bank; Nucleus —también llamado BOMA 2.0— fue su evolución para todo el grupo. Los indicadores de esta sección salen de ese producto real, no de un proyecto de demostración.",
+    "terms": [
+      {
+        "term": "BOMA",
+        "definition": "El backoffice original construido para Ueno Bank: el panel interno donde se operan productos y configuraciones."
+      },
+      {
+        "term": "Nucleus / BOMA 2.0",
+        "definition": "La evolución de BOMA para todas las empresas del Grupo Vázquez, preparada para varios clientes a la vez."
+      },
+      {
+        "term": "Multi-tenant",
+        "definition": "Una sola plataforma que atiende a varias empresas manteniendo sus datos y configuraciones separados."
+      },
+      {
+        "term": "Squad",
+        "definition": "Equipo pequeño y autónomo responsable de un módulo o producto completo."
+      },
+      {
+        "term": "BFF",
+        "definition": "Capa intermedia que prepara los datos para una interfaz concreta, para que cada frontend reciba solo lo que necesita."
+      }
+    ]
+  },
+  "impact": [
+    {
+      "value": "<30 min",
+      "label": "Integrar un módulo nuevo",
+      "detail": "Antes, cada integración dependía del equipo central y tomaba alrededor de una semana. BOMA la convirtió en una configuración que cada squad puede hacer por su cuenta.",
+      "icon": "bolt",
+      "tone": "cyan"
+    },
+    {
+      "value": "80",
+      "label": "Módulos conectados en producción",
+      "detail": "Funcionalidades de negocio integradas sobre la misma plataforma multi-tenant, sin construir una versión distinta para cada empresa.",
+      "icon": "layers",
+      "tone": "lime"
+    },
+    {
+      "value": "60+",
+      "label": "Equipos usando la plataforma",
+      "detail": "Squads internos que consumían la API central y los BFF para crear sus propias pantallas y funcionalidades.",
+      "icon": "network",
+      "tone": "violet"
+    },
+    {
+      "value": "15–30 min",
+      "label": "Diagnóstico de una alerta crítica",
+      "detail": "Durante una guardia, el tiempo para entender qué falló bajó de 1–2 horas a 15–30 minutos con agentes que consultaban New Relic y dejaban un postmortem.",
+      "icon": "activity",
+      "tone": "orange"
+    }
+  ],
+  "stack": [
+    {
+      "id": "backend",
+      "label": "Backend",
+      "icon": "code",
+      "description": "Servicios robustos y APIs que sostienen producto crítico.",
+      "technologies": [
+        {
+          "name": "Node.js",
+          "icon": "node",
+          "level": "Core",
+          "detail": "APIs y servicios de alta concurrencia.",
+          "color": "#68a063"
+        },
+        {
+          "name": "NestJS",
+          "icon": "nest",
+          "level": "Core",
+          "detail": "Arquitectura modular, DI y microservicios.",
+          "color": "#e0234e"
+        },
+        {
+          "name": "TypeScript",
+          "icon": "typescript",
+          "level": "Core",
+          "detail": "Tipado fuerte de dominio a infraestructura.",
+          "color": "#3178c6"
+        },
+        {
+          "name": "Express",
+          "icon": "node",
+          "level": "Sólido",
+          "detail": "APIs ligeras y BFFs.",
+          "color": "#9aa0a6"
+        },
+        {
+          "name": "Go",
+          "icon": "go",
+          "level": "Explorando",
+          "detail": "Primer PR a producción en un repo ajeno.",
+          "color": "#00add8"
+        },
+        {
+          "name": "PHP / Laravel",
+          "icon": "code",
+          "level": "Base",
+          "detail": "CMS y aplicaciones web en etapas previas.",
+          "color": "#8892bf"
+        },
+        {
+          "name": "Apps Script",
+          "icon": "table",
+          "level": "Práctico",
+          "detail": "Automatización y apps personales sin infraestructura.",
+          "color": "#34a853"
+        }
+      ]
+    },
+    {
+      "id": "architecture",
+      "label": "Arquitectura",
+      "icon": "layers",
+      "description": "El hilo conductor: límites claros, bajo acoplamiento y evolución segura.",
+      "technologies": [
+        {
+          "name": "Domain-Driven Design",
+          "icon": "box",
+          "level": "Core",
+          "detail": "Lenguaje ubicuo, agregados y value objects.",
+          "color": "#22d3ee"
+        },
+        {
+          "name": "Arquitectura hexagonal",
+          "icon": "hexagon",
+          "level": "Core",
+          "detail": "Puertos y adaptadores para aislar el dominio.",
+          "color": "#a3e635"
+        },
+        {
+          "name": "Clean Architecture",
+          "icon": "layers",
+          "level": "Core",
+          "detail": "Dependencias hacia dentro, reglas protegidas.",
+          "color": "#38bdf8"
+        },
+        {
+          "name": "Microservicios",
+          "icon": "network",
+          "level": "Sólido",
+          "detail": "Sistemas distribuidos con límites de negocio.",
+          "color": "#c084fc"
+        },
+        {
+          "name": "Event-Driven",
+          "icon": "activity",
+          "level": "Sólido",
+          "detail": "Eventos de dominio y comunicación asíncrona.",
+          "color": "#fb923c"
+        },
+        {
+          "name": "BFF",
+          "icon": "route",
+          "level": "Core",
+          "detail": "Backends para microfrontends y canales.",
+          "color": "#22d3ee"
+        },
+        {
+          "name": "REST",
+          "icon": "globe",
+          "level": "Core",
+          "detail": "APIs claras y orientadas a recursos.",
+          "color": "#a3e635"
+        },
+        {
+          "name": "GraphQL",
+          "icon": "share",
+          "level": "Conocimiento",
+          "detail": "Contratos flexibles para clientes diversos.",
+          "color": "#e879f9"
+        },
+        {
+          "name": "Multi-tenancy",
+          "icon": "building",
+          "level": "Core",
+          "detail": "Aislamiento y configuración por cliente.",
+          "color": "#facc15"
+        },
+        {
+          "name": "Spec-Driven Development",
+          "icon": "fileCode",
+          "level": "Práctica",
+          "detail": "Especificar antes de generar con agentes.",
+          "color": "#a3e635"
+        }
+      ]
+    },
+    {
+      "id": "data",
+      "label": "Datos",
+      "icon": "database",
+      "description": "Persistencia elegida por el problema, no por costumbre.",
+      "technologies": [
+        {
+          "name": "PostgreSQL",
+          "icon": "database",
+          "level": "Core",
+          "detail": "Modelo relacional y consultas críticas.",
+          "color": "#336791"
+        },
+        {
+          "name": "MongoDB",
+          "icon": "database",
+          "level": "Sólido",
+          "detail": "Documentos y modelos flexibles.",
+          "color": "#47a248"
+        },
+        {
+          "name": "Redis",
+          "icon": "stack",
+          "level": "Core",
+          "detail": "Caché, sesiones y estructuras de alto rendimiento.",
+          "color": "#dc382d"
+        },
+        {
+          "name": "TypeORM",
+          "icon": "database",
+          "level": "Core",
+          "detail": "Persistencia tipada en NestJS.",
+          "color": "#fe0803"
+        },
+        {
+          "name": "Prisma",
+          "icon": "database",
+          "level": "Conocimiento",
+          "detail": "Acceso tipado y migraciones.",
+          "color": "#5a67d8"
+        },
+        {
+          "name": "MySQL",
+          "icon": "database",
+          "level": "Base",
+          "detail": "Aplicaciones web y sistemas transaccionales.",
+          "color": "#00758f"
+        }
+      ]
+    },
+    {
+      "id": "cloud",
+      "label": "Cloud & DevOps",
+      "icon": "cloud",
+      "description": "Operación observable, automatizada y segura.",
+      "technologies": [
+        {
+          "name": "AWS",
+          "icon": "cloud",
+          "level": "Sólido",
+          "detail": "Servicios operados vía plataforma interna.",
+          "color": "#ff9900"
+        },
+        {
+          "name": "AWS SQS / SNS",
+          "icon": "share",
+          "level": "Sólido",
+          "detail": "Mensajería y desacoplamiento asíncrono.",
+          "color": "#ff9900"
+        },
+        {
+          "name": "Kong API Gateway",
+          "icon": "route",
+          "level": "Sólido",
+          "detail": "Plugins, rate limiting y gobierno de APIs.",
+          "color": "#00b6cb"
+        },
+        {
+          "name": "GitHub Actions",
+          "icon": "github",
+          "level": "Core",
+          "detail": "CI/CD y automatización del ciclo de entrega.",
+          "color": "#e5e7eb"
+        },
+        {
+          "name": "Docker",
+          "icon": "container",
+          "level": "Sólido",
+          "detail": "Entornos reproducibles y despliegues limpios.",
+          "color": "#2496ed"
+        },
+        {
+          "name": "New Relic",
+          "icon": "activity",
+          "level": "Sólido",
+          "detail": "Observabilidad, alertas y diagnóstico.",
+          "color": "#1ce783"
+        },
+        {
+          "name": "nullplatform",
+          "icon": "cpu",
+          "level": "Sólido",
+          "detail": "IDP para operar servicios en AWS.",
+          "color": "#c084fc"
+        }
+      ]
+    },
+    {
+      "id": "quality",
+      "label": "Calidad & Seguridad",
+      "icon": "shield",
+      "description": "La confianza no se declara: se verifica.",
+      "technologies": [
+        {
+          "name": "TDD",
+          "icon": "test",
+          "level": "Core",
+          "detail": "Comportamiento antes que implementación.",
+          "color": "#a3e635"
+        },
+        {
+          "name": "Jest",
+          "icon": "flask",
+          "level": "Core",
+          "detail": "Pruebas unitarias e integración.",
+          "color": "#c21325"
+        },
+        {
+          "name": "Clean Code",
+          "icon": "sparkles",
+          "level": "Core",
+          "detail": "Código legible, intencional y mantenible.",
+          "color": "#22d3ee"
+        },
+        {
+          "name": "JWT",
+          "icon": "key",
+          "level": "Sólido",
+          "detail": "Autenticación stateless y claims.",
+          "color": "#facc15"
+        },
+        {
+          "name": "OAuth 2.0",
+          "icon": "lock",
+          "level": "Sólido",
+          "detail": "Autorización delegada y scopes.",
+          "color": "#38bdf8"
+        },
+        {
+          "name": "Rate limiting",
+          "icon": "gauge",
+          "level": "Sólido",
+          "detail": "Protección de APIs en el gateway.",
+          "color": "#fb923c"
+        }
+      ]
+    },
+    {
+      "id": "ai",
+      "label": "IA & Agentic",
+      "icon": "spark",
+      "description": "IA aplicada con ingeniería, contexto y validación.",
+      "technologies": [
+        {
+          "name": "Agentic AI",
+          "icon": "bot",
+          "level": "Práctica",
+          "detail": "Agentes para desarrollo, guardias y postmortems.",
+          "color": "#a3e635"
+        },
+        {
+          "name": "MCP servers",
+          "icon": "plug",
+          "level": "Práctica",
+          "detail": "Herramientas acotadas para agentes.",
+          "color": "#22d3ee"
+        },
+        {
+          "name": "Skills",
+          "icon": "sparkles",
+          "level": "Práctica",
+          "detail": "Capacidades reutilizables y contextuales.",
+          "color": "#c084fc"
+        },
+        {
+          "name": "AGENTS.md",
+          "icon": "fileCode",
+          "level": "Práctica",
+          "detail": "Reglas e índice de contexto para el equipo.",
+          "color": "#facc15"
+        },
+        {
+          "name": "Spec-Driven Development",
+          "icon": "fileText",
+          "level": "Práctica",
+          "detail": "Planificar, testear, generar y revisar.",
+          "color": "#a3e635"
+        },
+        {
+          "name": "Gemini",
+          "icon": "spark",
+          "level": "Práctico",
+          "detail": "OCR y automatización low-code.",
+          "color": "#4285f4"
+        },
+        {
+          "name": "Slackbots / New Relic",
+          "icon": "bot",
+          "level": "Impacto",
+          "detail": "Triaje asistido de alertas en producción.",
+          "color": "#1ce783"
+        }
+      ]
+    },
+    {
+      "id": "mobile",
+      "label": "Mobile & Low-code",
+      "icon": "mobile",
+      "description": "Del backend al producto, con foco en la experiencia.",
+      "technologies": [
+        {
+          "name": "React Native",
+          "icon": "mobile",
+          "level": "Proyecto",
+          "detail": "Closer App con TypeScript e Ignite CLI.",
+          "color": "#61dafb"
+        },
+        {
+          "name": "Ignite CLI",
+          "icon": "terminal",
+          "level": "Proyecto",
+          "detail": "Boilerplate y convenciones mobile.",
+          "color": "#f97316"
+        },
+        {
+          "name": "Figma",
+          "icon": "pen",
+          "level": "Colaboración",
+          "detail": "Implementación fiel de diseño UX/UI.",
+          "color": "#f24e1e"
+        },
+        {
+          "name": "Jetpack Compose",
+          "icon": "mobile",
+          "level": "Formación",
+          "detail": "Desarrollo Android moderno.",
+          "color": "#3ddc84"
+        },
+        {
+          "name": "Google Sheets",
+          "icon": "table",
+          "level": "Práctico",
+          "detail": "Base de datos para herramientas personales.",
+          "color": "#34a853"
+        },
+        {
+          "name": "PWA",
+          "icon": "globe",
+          "level": "Práctico",
+          "detail": "Experiencia mobile first con modo offline.",
+          "color": "#22d3ee"
+        }
+      ]
+    }
+  ],
+  "experience": [
+    {
+      "company": "itti",
+      "role": "Senior Software Engineer",
+      "period": "ene. 2025 — actualidad",
+      "duration": "1 año 11 meses",
+      "location": "Paraguay · Remoto",
+      "employment": "Jornada completa",
+      "current": true,
+      "summary": "Backoffice Core era el equipo que construía el backoffice interno del Grupo Vázquez: el panel donde empleados —no clientes finales— administran módulos, roles, permisos y configuraciones de varias empresas del grupo. Yo era uno de los dos referentes backend, es decir, una de las personas a las que el equipo consultaba para tomar decisiones técnicas.",
+      "highlights": [
+        "Contribuí al Backoffice Manager (BOMA), una herramienta para que cada squad pudiera conectar sus propios módulos sin depender del equipo central. El tiempo de integración pasó de una semana a menos de 30 minutos y llegó a 80 integraciones en producción.",
+        "Lideré la migración de todos los backoffices de Ueno Bank al nuevo backoffice del Grupo Vázquez, coordinando con proveedores internos la migración de roles, permisos y configuraciones.",
+        "Co-diseñé la arquitectura del backoffice de Ueno Bank y después del de todo el grupo. Construí la API central y los BFF (capas que adaptan los datos para cada interfaz) con NestJS, TypeScript, Redis, TypeORM y arquitectura hexagonal.",
+        "Operé servicios en AWS a través de nullplatform (la plataforma interna de despliegue), configuré reglas en Kong API Gateway y mantuve la integración y entrega continua en GitHub Actions.",
+        "Definí la arquitectura base y el template del asistente de nullplatform que usaban otros equipos para crear servicios, incluyendo reglas y AGENTS.md para que los agentes de código entendieran las convenciones.",
+        "Implementé un flujo de trabajo con especificaciones y agentes de IA para diagnosticar alertas de New Relic y dejar un análisis posterior al incidente. La respuesta a incidentes críticos bajó de 1–2 horas a 15–30 minutos."
+      ],
+      "technologies": [
+        "NestJS",
+        "TypeScript",
+        "Node.js",
+        "Redis",
+        "TypeORM",
+        "AWS",
+        "Kong",
+        "GitHub Actions",
+        "New Relic",
+        "Arquitectura hexagonal",
+        "TDD",
+        "IA agéntica"
+      ]
+    },
+    {
+      "company": "Acid Labs",
+      "role": "Senior Software Engineer",
+      "period": "feb. 2023 — oct. 2024",
+      "duration": "1 año 9 meses",
+      "location": "Remoto",
+      "employment": "Jornada completa",
+      "current": false,
+      "summary": "En el equipo de comunicaciones, formé parte del desarrollo de Vortex, el sistema que enviaba las notificaciones de la empresa por email, push y otros canales. En lugar de tener una integración distinta por canal, el sistema trataba el envío como un problema de negocio común.",
+      "highlights": [
+        "Implementé buenas prácticas de código y arquitectura hexagonal para facilitar el modelado del dominio y simplificar el testing.",
+        "Alcanzamos una cobertura superior al 90 % con pruebas altamente confiables.",
+        "Promoví buenas prácticas de desarrollo y un entorno colaborativo dentro del equipo."
+      ],
+      "technologies": [
+        "Arquitectura hexagonal",
+        "DDD",
+        "Node.js",
+        "TypeScript",
+        "Microservicios",
+        "Testing",
+        "Clean Architecture"
+      ]
+    },
+    {
+      "company": "Acid Labs",
+      "role": "Ssr. Software Engineer",
+      "period": "abr. 2022 — feb. 2023",
+      "duration": "11 meses",
+      "location": "Remoto",
+      "employment": "Jornada completa",
+      "current": false,
+      "summary": "Equipo de Experiencia Posventa (Customer Service) de Cencosud: una plataforma para que los ejecutivos de tienda pudieran atender reclamos y consultas sobre compras de clientes de las distintas marcas del grupo, sin crear un sistema separado por marca.",
+      "highlights": [
+        "Desarrollo de servicios con enfoque multi-tenant.",
+        "Aplicación de arquitectura hexagonal como patrón central de los servicios.",
+        "Colaboración en una plataforma de soporte para múltiples marcas del grupo."
+      ],
+      "technologies": [
+        "Arquitectura hexagonal",
+        "Clean Architecture",
+        "Node.js",
+        "TypeScript",
+        "Multi-tenancy",
+        "Retail"
+      ]
+    },
+    {
+      "company": "Sitio Uno",
+      "role": "Desarrollador Backend",
+      "period": "dic. 2018 — jul. 2022",
+      "duration": "3 años 8 meses",
+      "location": "Venezuela · Presencial",
+      "employment": "Jornada completa",
+      "current": false,
+      "summary": "Desarrollo de distintos servicios para productos financieros con Node.js y TypeScript. Aquí empecé a aplicar arquitectura hexagonal y DDD: separar las reglas del negocio de la base de datos, las APIs y otras herramientas.",
+      "highlights": [
+        "Implementación de arquitectura hexagonal, Domain-Driven Design y eventos de dominio.",
+        "Aplicación de patrones de diseño, clean code y clean architecture.",
+        "Construcción de servicios backend para productos financieros."
+      ],
+      "technologies": [
+        "Node.js",
+        "TypeScript",
+        "MongoDB",
+        "DDD",
+        "Arquitectura hexagonal",
+        "Eventos de dominio",
+        "Clean Code"
+      ]
+    },
+    {
+      "company": "Tifyca Soluciones Digitales",
+      "role": "Desarrollador Backend",
+      "period": "oct. 2018 — ene. 2020",
+      "duration": "1 año 4 meses",
+      "location": "Remoto",
+      "employment": "Profesional independiente",
+      "current": false,
+      "summary": "Desarrollo de distintos CMS en diversos proyectos con Laravel y metodología ágil SCRUM.",
+      "highlights": [
+        "Desarrollo de CMS para múltiples proyectos.",
+        "Trabajo remoto con Laravel y SCRUM."
+      ],
+      "technologies": [
+        "Laravel",
+        "PHP",
+        "SCRUM",
+        "CMS",
+        "MySQL"
+      ]
+    },
+    {
+      "company": "CANTV",
+      "role": "Desarrollador de Software",
+      "period": "abr. 2018 — dic. 2018",
+      "duration": "9 meses",
+      "location": "Caracas, Venezuela · Presencial",
+      "employment": "Jornada completa",
+      "current": false,
+      "summary": "Consultor en la Gerencia de Seguridad, Operaciones y Servicios (GSOS). Desarrollo de aplicaciones web con Laravel para operaciones críticas.",
+      "highlights": [
+        "Sistema gestor de reportes de transacciones en línea del facturador RTB de Movilnet.",
+        "Sistema de control de inventario de servidores.",
+        "Sistema gestor de riesgos mediante matriz de riesgo."
+      ],
+      "technologies": [
+        "Laravel",
+        "PHP",
+        "MySQL",
+        "Aplicaciones web",
+        "Gestión de riesgos"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "Universidad Nacional Experimental Politécnica 'Antonio José de Sucre'",
+      "title": "Ingeniería de Sistemas",
+      "period": "2011 — 2019",
+      "detail": "Formación en ingeniería y sistemas."
+    },
+    {
+      "institution": "Cisco Networking Academy",
+      "title": "CCNA",
+      "period": "2018",
+      "detail": "Módulos I y II."
+    }
+  ],
+  "certifications": [
+    {
+      "name": "Agregados [Modelado del dominio]",
+      "issuer": "Codely",
+      "issued": "sept. 2025",
+      "skills": [
+        "Arquitectura de software",
+        "Agregados"
+      ],
+      "credential": "agregados-modelado-del-dominio.pdf"
+    },
+    {
+      "name": "Value Objects [Modelado del dominio]",
+      "issuer": "Codely",
+      "issued": "sept. 2025",
+      "skills": [
+        "Diseño de software",
+        "Arquitectura de software"
+      ],
+      "credential": "value-objects-modelado-del-dominio.pdf"
+    },
+    {
+      "name": "Curso Jetpack Compose desde 0",
+      "issuer": "Udemy",
+      "issued": "feb. 2025",
+      "skills": [
+        "Desarrollo de Android",
+        "Jetpack Compose"
+      ],
+      "credential": "UC-0d05cd13-b56f-4f64-aac9-e2b19fe414ea"
+    },
+    {
+      "name": "Primeros pasos con Rust",
+      "issuer": "Microsoft",
+      "issued": "jul. 2023",
+      "skills": [
+        "Rust",
+        "Programación de bajo nivel"
+      ],
+      "credential": ""
+    },
+    {
+      "name": "Big Data Processing",
+      "issuer": "Telefónica",
+      "issued": "oct. 2018",
+      "skills": [
+        "Big Data"
+      ],
+      "credential": ""
+    },
+    {
+      "name": "CCNA Routing and Switching: Principios básicos de routing y switching",
+      "issuer": "Cisco",
+      "issued": "ago. 2018",
+      "skills": [
+        "Routing",
+        "Switching"
+      ],
+      "credential": ""
+    },
+    {
+      "name": "M001: MongoDB Basics",
+      "issuer": "MongoDB",
+      "issued": "ago. 2018",
+      "skills": [
+        "MongoDB"
+      ],
+      "credential": ""
+    },
+    {
+      "name": "CCNA Routing and Switching: Introducción a redes",
+      "issuer": "Cisco",
+      "issued": "jun. 2018",
+      "skills": [
+        "Redes"
+      ],
+      "credential": ""
+    }
+  ],
+  "skills": [
+    {
+      "name": "Node.js",
+      "evidence": "Evaluación de aptitudes de LinkedIn superada · 3 validaciones"
+    },
+    {
+      "name": "Clean code",
+      "evidence": "2 experiencias en Acid Labs"
+    },
+    {
+      "name": "Clean architecture",
+      "evidence": "Ssr. Software Engineer en Acid Labs"
+    },
+    {
+      "name": "TypeScript",
+      "evidence": "2 experiencias en Acid Labs y una empresa más"
+    },
+    {
+      "name": "Closer App",
+      "evidence": "Proyecto personal mobile"
+    },
+    {
+      "name": "Arquitectura hexagonal",
+      "evidence": "3 experiencias en itti y una empresa más"
+    },
+    {
+      "name": "Value Objects",
+      "evidence": "Certificación de modelado del dominio"
+    },
+    {
+      "name": "Agregados",
+      "evidence": "Certificación de modelado del dominio"
+    },
+    {
+      "name": "Diseño de software",
+      "evidence": "Certificación Value Objects"
+    },
+    {
+      "name": "Arquitectura de software",
+      "evidence": "Certificaciones Codely"
+    },
+    {
+      "name": "TypeORM",
+      "evidence": "Senior Software Engineer en itti"
+    },
+    {
+      "name": "Redis",
+      "evidence": "Senior Software Engineer en itti"
+    }
+  ],
+  "projects": [
+    {
+      "name": "BOMA / Nucleus",
+      "kind": "Plataforma multi-tenant",
+      "period": "2025 — 2026",
+      "description": "BOMA fue el backoffice interno creado para Ueno Bank y Nucleus su evolución para todo el Grupo Vázquez. Es la plataforma donde empleados administran módulos, roles, permisos y configuraciones de varias empresas, con los datos separados aunque compartan la misma base tecnológica.",
+      "highlights": [
+        "Integrar un módulo pasó de una semana a menos de 30 minutos.",
+        "80 módulos conectados en producción.",
+        "Migración de todos los backoffices de Ueno Bank.",
+        "API central y BFF para más de 60 equipos internos.",
+        "Arquitectura hexagonal, TDD y +90 % de cobertura."
+      ],
+      "technologies": [
+        "NestJS",
+        "TypeScript",
+        "Redis",
+        "TypeORM",
+        "AWS",
+        "Kong",
+        "Multi-tenancy",
+        "BFF"
+      ],
+      "link": "",
+      "status": "Impacto profesional"
+    },
+    {
+      "name": "poc-nestjs-ports-and-adapters",
+      "kind": "Open source · Template",
+      "period": "2022 — actualidad",
+      "description": "Un repositorio público para aprender arquitectura hexagonal en NestJS y usarlo como base de una API. Con el tiempo se convirtió en una plantilla: un proyecto de arranque con reglas y herramientas para que un equipo —o un agente de IA— sepa dónde va cada cosa.",
+      "highlights": [
+        "Inspiró la plantilla del asistente interno para crear servicios.",
+        "Node 24, NestJS 12, TypeScript 6 y TypeORM 1.",
+        "Tests en carpeta espejo y Object Mothers (fábricas de datos de prueba).",
+        "Docker con recarga automática y configuración para agentes."
+      ],
+      "technologies": [
+        "NestJS",
+        "Node.js",
+        "TypeScript",
+        "TypeORM",
+        "TDD",
+        "Docker",
+        "AGENTS.md"
+      ],
+      "link": "https://github.com/leip1493/poc-nestjs-ports-and-adapters",
+      "status": "Open source"
+    },
+    {
+      "name": "Slackbot de guardia",
+      "kind": "IA agéntica · Observabilidad",
+      "period": "2026",
+      "description": "Un compañero de guardia dentro de Slack: cuando saltaba una alerta en New Relic, el agente ayudaba a investigar qué había pasado, ordenar las hipótesis y dejar el análisis escrito en Confluence. Se construyó conversando con el propio agente, alerta por alerta.",
+      "highlights": [
+        "Encontró la causa de una alerta que se repetía cada pocos días.",
+        "Resolvió una alerta de browser agent en 15–20 minutos.",
+        "Documentó el aprendizaje de cada incidente para la siguiente guardia."
+      ],
+      "technologies": [
+        "Agentic AI",
+        "Slack",
+        "New Relic",
+        "Confluence",
+        "SRE",
+        "Observability"
+      ],
+      "link": "",
+      "status": "Experimentación aplicada"
+    },
+    {
+      "name": "App del súper con Sheets + IA",
+      "kind": "Low-code · PWA",
+      "period": "2026",
+      "description": "Una aplicación web personal que usa Google Sheets como base de datos. Sirve para llevar la lista del súper, escanear una factura con la cámara y convertirla en registros, comparar precios y ver cuánto se gasta. No necesita servidores ni una app nativa: se abre desde el teléfono.",
+      "highlights": [
+        "OCR (lectura automática) de facturas y productos con Gemini.",
+        "Validación de totales y comparación de precios por lugar.",
+        "Diseño mobile first y funcionamiento sin conexión.",
+        "Cero servidores, autenticación o costos de infraestructura."
+      ],
+      "technologies": [
+        "Google Sheets",
+        "Apps Script",
+        "Gemini",
+        "PWA",
+        "JavaScript",
+        "Low-code"
+      ],
+      "link": "",
+      "status": "Proyecto personal"
+    },
+    {
+      "name": "Closer App",
+      "kind": "Mobile · Proyecto personal",
+      "period": "dic. 2022 — actualidad",
+      "description": "Una app mobile para guardar restaurantes, cafés y otros lugares que quieres visitar, y recibir un aviso cuando estás cerca. Google Maps se usa para elegir el lugar y obtener sus datos.",
+      "highlights": [
+        "React Native con TypeScript.",
+        "Base de proyecto Ignite CLI.",
+        "Diseño de Figma implementado en la app.",
+        "Integración con Google Maps y avisos por ubicación."
+      ],
+      "technologies": [
+        "React Native",
+        "TypeScript",
+        "Ignite CLI",
+        "Figma",
+        "Google Maps"
+      ],
+      "link": "",
+      "status": "Proyecto personal"
+    },
+    {
+      "name": "Vortex",
+      "kind": "Comunicaciones multicanal",
+      "period": "2023 — 2024",
+      "description": "El sistema de comunicaciones que enviaba notificaciones por email, push y otros canales. La arquitectura permitía agregar o cambiar un canal sin reescribir la lógica central de negocio.",
+      "highlights": [
+        "Modelo de dominio separado de cada proveedor de mensajería.",
+        "Cobertura de pruebas superior al 90 %.",
+        "Pruebas confiables para evolucionar el sistema sin miedo."
+      ],
+      "technologies": [
+        "Node.js",
+        "TypeScript",
+        "Microservicios",
+        "Arquitectura hexagonal",
+        "DDD",
+        "Testing"
+      ],
+      "link": "",
+      "status": "Producto"
+    }
+  ],
+  "interests": [
+    {
+      "name": "Arquitectura de software",
+      "detail": "Diseño de sistemas, DDD, arquitectura hexagonal y decisiones técnicas."
+    },
+    {
+      "name": "IA aplicada al desarrollo",
+      "detail": "Agentes, MCP, skills, Spec-Driven Development y observabilidad."
+    },
+    {
+      "name": "Open source",
+      "detail": "Plantillas y recursos para que otros equipos aprendan y construyan más rápido."
+    },
+    {
+      "name": "Top Voices",
+      "detail": "Sigue a referentes como Miguel Ángel Durán García en IA, programación y tecnología."
+    }
+  ],
+  "languages": [
+    {
+      "name": "Español",
+      "level": "Nativo"
+    },
+    {
+      "name": "Inglés",
+      "level": "Técnico"
+    }
+  ]
+};

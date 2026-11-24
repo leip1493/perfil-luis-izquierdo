@@ -5,7 +5,8 @@
   const ACTIVITY = window.ACTIVITY_DATA || [];
   const $ = (selector, root = document) => root.querySelector(selector);
   const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const isMotionReduced = () => motionQuery.matches || document.body.classList.contains("motion-paused");
   let scrollToSection = null;
 
   const ICONS = {
@@ -95,14 +96,6 @@
     return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
   }
 
-  function alpha(hex, opacity) {
-    if (!/^#[0-9a-f]{6}$/i.test(hex)) return `rgba(34, 211, 238, ${opacity})`;
-    const r = parseInt(hex.slice(1, 3), 16);
-    const g = parseInt(hex.slice(3, 5), 16);
-    const b = parseInt(hex.slice(5, 7), 16);
-    return `rgba(${r}, ${g}, ${b}, ${opacity})`;
-  }
-
   function hydrateIcons(root = document) {
     $$("[data-icon]", root).forEach((node) => {
       node.innerHTML = icon(node.dataset.icon);
@@ -115,7 +108,7 @@
     $("#heroSummary").textContent = hero.summary;
     const heroTitle = $("#heroTitle");
     if (heroTitle && hero.title) {
-      heroTitle.innerHTML = `${escapeHtml(hero.title)}<br><span class="gradient-text">${escapeHtml(hero.accent)}</span> que escalan.`;
+      heroTitle.innerHTML = `${escapeHtml(hero.title)}<br><span class="editorial-accent">${escapeHtml(hero.accent)}</span> que escalan.`;
     }
 
     const metaItems = [
@@ -153,7 +146,11 @@
   function animateCounter(node) {
     const target = Number(node.dataset.target || 0);
     const suffix = node.dataset.suffix || "";
-    const duration = reduceMotion ? 1 : 1150;
+    if (isMotionReduced()) {
+      node.innerHTML = `${target}<span>${escapeHtml(suffix)}</span>`;
+      return;
+    }
+    const duration = 950;
     const start = performance.now();
     const step = (now) => {
       const progress = Math.min((now - start) / duration, 1);
@@ -167,7 +164,7 @@
   function renderStats() {
     $("#statsGrid").innerHTML = PROFILE.stats.map((stat) => `
       <article class="stat-card">
-        <div class="stat-value" data-target="${Number(stat.value)}" data-suffix="${escapeHtml(stat.suffix)}">0</div>
+        <div class="stat-value" data-target="${Number(stat.value)}" data-suffix="${escapeHtml(stat.suffix)}">${Number(stat.value)}<span>${escapeHtml(stat.suffix)}</span></div>
         <div class="stat-label">${escapeHtml(stat.label)}</div>
         <div class="stat-detail">${escapeHtml(stat.detail)}</div>
       </article>
@@ -188,7 +185,7 @@
       `).join("");
     }
     $("#impactGrid").innerHTML = PROFILE.impact.map((item) => `
-      <article class="impact-card" data-tone="${escapeHtml(item.tone || "cyan")}">
+      <article class="impact-card">
         <div class="impact-icon">${icon(item.icon)}</div>
         <div class="impact-value">${escapeHtml(item.value)}</div>
         <div class="impact-label">${escapeHtml(item.label)}</div>
@@ -219,7 +216,7 @@
             <div class="timeline-role">${escapeHtml(job.role)}</div>
           </div>
           <div class="timeline-period">${escapeHtml(job.period)}<small>${escapeHtml(job.duration)} · ${escapeHtml(job.location)}</small></div>
-          <span class="timeline-toggle">${icon("plus")}</span>
+          <span class="timeline-toggle" aria-hidden="true">${icon("plus")}</span>
         </summary>
         <div class="timeline-body">
           <p>${escapeHtml(job.summary)}</p>
@@ -241,9 +238,8 @@
   }
 
   function techCard(tech) {
-    const color = tech.color || "#22d3ee";
     return `
-      <article class="tech-card" style="--tech:${escapeHtml(color)};--tech-bg:${alpha(color, 0.07)};--tech-line:${alpha(color, 0.28)}" title="${escapeHtml(tech.detail)}">
+      <article class="tech-card" title="${escapeHtml(tech.detail)}">
         <div class="tech-card-top">
           <span class="tech-symbol">${icon(tech.icon)}</span>
           <span class="tech-level">${escapeHtml(tech.level)}</span>
@@ -306,7 +302,7 @@
     `).join("");
     $("#certificationCount").textContent = `(${PROFILE.certifications.length})`;
     $("#languagesList").innerHTML = PROFILE.languages.map((language) => `
-      <span class="language-pill">${icon("check")}${escapeHtml(language.name)} · ${escapeHtml(language.level)}</span>
+      <span class="language-item">${icon("check")}${escapeHtml(language.name)} · ${escapeHtml(language.level)}</span>
     `).join("");
   }
 
@@ -315,8 +311,10 @@
   function linkify(text) {
     const escaped = escapeHtml(text);
     return escaped.replace(/(https?:\/\/[^\s<]+)/g, (url) => {
-      const clean = url.replace(/[),.;]+$/, "");
-      return `<a href="${clean}" target="_blank" rel="noopener noreferrer">${clean}</a>`;
+      const match = url.match(/^(.*?)([),.;]*)$/);
+      const clean = match ? match[1] : url;
+      const trailing = match ? match[2] : "";
+      return `<a href="${clean}" target="_blank" rel="noopener noreferrer">${clean}</a>${trailing}`;
     });
   }
 
@@ -332,8 +330,7 @@
   function renderActivity() {
     const query = normalize(activityQuery.trim());
     const items = ACTIVITY.filter((item) => {
-      const searchMatch = !query || normalize(`${item.title} ${item.summary} ${item.content} ${item.author} ${item.tags.join(" ")}`).includes(query);
-      return searchMatch;
+      return !query || normalize(`${item.title} ${item.summary} ${item.content} ${item.author} ${item.tags.join(" ")}`).includes(query);
     });
 
     $("#activityCount").textContent = `Mostrando ${items.length} de ${ACTIVITY.length} publicaciones propias · datos públicos de LinkedIn`;
@@ -343,7 +340,7 @@
     }
 
     $("#activityGrid").innerHTML = items.map((item) => `
-      <article class="activity-card" data-type="${item.type}" data-activity-id="${item.id}">
+      <article class="activity-card" data-type="${escapeHtml(item.type)}" data-activity-id="${escapeHtml(item.id)}">
         <div class="activity-top">
           <span class="activity-type ${item.type === "repost" ? "repost" : ""}">${icon(item.type === "post" ? "pen" : "repeat")}${item.type === "post" ? "Publicación propia" : "Compartido"}</span>
           <span class="activity-date">${escapeHtml(item.dateLabel)}</span>
@@ -356,10 +353,10 @@
         <p class="activity-summary">${escapeHtml(item.summary)}</p>
         ${item.tags.length ? `<div class="activity-tags">${item.tags.map((tag) => `<span class="activity-tag">#${escapeHtml(tag)}</span>`).join("")}</div>` : ""}
         <div class="activity-footer">
-          ${activityStats(item)}
-          <button class="activity-expand" type="button" data-expand-activity="${item.id}" aria-expanded="false">Leer publicación ${icon("chevronDown")}</button>
+          <div class="activity-stats">${activityStats(item)}</div>
+          <button class="activity-expand" type="button" data-expand-activity="${escapeHtml(item.id)}" aria-expanded="false" aria-controls="body-${escapeHtml(item.id)}">Leer publicación ${icon("chevronDown")}</button>
         </div>
-        <div class="activity-body" id="body-${item.id}">
+        <div class="activity-body" id="body-${escapeHtml(item.id)}" hidden>
           <p>${linkify(item.content)}</p>
         </div>
       </article>
@@ -385,16 +382,27 @@
         </div>
       </div>
     `;
-    dialog.dataset.returnFocus = index;
+    dialog.dataset.returnFocus = String(index);
     if (typeof dialog.showModal === "function") dialog.showModal();
     else dialog.setAttribute("open", "");
     hydrateIcons(content);
   }
 
+  function restoreProjectFocus(dialog) {
+    const index = Number(dialog.dataset.returnFocus);
+    if (Number.isNaN(index)) return;
+    const card = $(`[data-project-index="${index}"]`);
+    if (card) card.focus({ preventScroll: true });
+  }
+
   function closeDialog() {
     const dialog = $("#projectDialog");
-    if (typeof dialog.close === "function") dialog.close();
-    else dialog.removeAttribute("open");
+    if (typeof dialog.close === "function") {
+      if (dialog.open) dialog.close();
+    } else {
+      dialog.removeAttribute("open");
+      restoreProjectFocus(dialog);
+    }
   }
 
   function initProjectDialog() {
@@ -417,20 +425,27 @@
     dialog.addEventListener("click", (event) => {
       if (event.target === dialog) closeDialog();
     });
-    dialog.addEventListener("close", () => {
-      const index = Number(dialog.dataset.returnFocus);
-      const card = $(`[data-project-index="${index}"]`);
-      if (card) card.focus({ preventScroll: true });
-    });
+    dialog.addEventListener("close", () => restoreProjectFocus(dialog));
   }
 
   function initStack() {
-    $("#stackFilters").addEventListener("click", (event) => {
+    const filters = $("#stackFilters");
+    filters.addEventListener("click", (event) => {
       const button = event.target.closest("[data-stack-filter]");
       if (!button) return;
       activeStack = button.dataset.stackFilter;
-      $$("[data-stack-filter]").forEach((item) => item.setAttribute("aria-selected", String(item === button)));
+      $$("[data-stack-filter]", filters).forEach((item) => item.setAttribute("aria-selected", String(item === button)));
       renderStack();
+    });
+    filters.addEventListener("keydown", (event) => {
+      if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
+      const tabs = $$("[data-stack-filter]", filters);
+      const current = tabs.indexOf(document.activeElement);
+      if (current === -1) return;
+      event.preventDefault();
+      const next = (current + (event.key === "ArrowRight" ? 1 : -1) + tabs.length) % tabs.length;
+      tabs[next].focus();
+      tabs[next].click();
     });
     $("#stackSearch").addEventListener("input", (event) => {
       stackQuery = event.target.value;
@@ -447,7 +462,9 @@
       const button = event.target.closest("[data-expand-activity]");
       if (!button) return;
       const card = button.closest(".activity-card");
+      const body = $("#body-" + button.dataset.expandActivity);
       const isOpen = card.classList.toggle("is-open");
+      if (body) body.hidden = !isOpen;
       button.setAttribute("aria-expanded", String(isOpen));
       button.innerHTML = isOpen ? `Cerrar ${icon("chevronDown")}` : `Leer publicación ${icon("chevronDown")}`;
     });
@@ -531,12 +548,13 @@
       button.innerHTML = `${icon("activity")} Recorriendo el flujo…`;
       progress.style.width = "0%";
       showStep(0);
-      if (motion && typeof motion.beginElement === "function" && !reduceMotion) motion.beginElement();
+      if (motion && typeof motion.beginElement === "function" && !isMotionReduced()) motion.beginElement();
+      const interval = isMotionReduced() ? 550 : 1050;
       steps.forEach((_, index) => {
         if (index === 0) return;
-        timers.push(setTimeout(() => showStep(index), index * 1050));
+        timers.push(setTimeout(() => showStep(index), index * interval));
       });
-      timers.push(setTimeout(finish, steps.length * 1050 + 700));
+      timers.push(setTimeout(finish, steps.length * interval + 600));
     };
 
     button.addEventListener("click", run);
@@ -544,7 +562,7 @@
 
   function initReveal() {
     const nodes = $$(".reveal");
-    if (!("IntersectionObserver" in window) || reduceMotion) {
+    if (!("IntersectionObserver" in window) || isMotionReduced()) {
       nodes.forEach((node) => node.classList.add("is-visible"));
       return;
     }
@@ -554,13 +572,13 @@
         entry.target.classList.add("is-visible");
         observer.unobserve(entry.target);
       });
-    }, { threshold: 0.12, rootMargin: "0px 0px -40px" });
+    }, { threshold: 0.01, rootMargin: "0px 0px -20px 0px" });
     nodes.forEach((node) => observer.observe(node));
   }
 
   function initCounters() {
     const values = $$(".stat-value");
-    if (!("IntersectionObserver" in window) || reduceMotion) {
+    if (!("IntersectionObserver" in window) || isMotionReduced()) {
       values.forEach((node) => animateCounter(node));
       return;
     }
@@ -570,7 +588,7 @@
         animateCounter(entry.target);
         observer.unobserve(entry.target);
       });
-    }, { threshold: 0.5 });
+    }, { threshold: 0.35 });
     values.forEach((node) => observer.observe(node));
   }
 
@@ -606,13 +624,11 @@
 
     const railLinks = $$("[data-section-link]", rail);
     const navLinks = $$(".main-nav a, .mobile-menu a");
-    let activeId = "inicio";
     let navigationTarget = null;
     let navigationTimer;
     let ticking = false;
 
     const setActive = (id) => {
-      activeId = id;
       const updateLink = (link) => {
         const match = link.getAttribute("href") === `#${id}`;
         link.classList.toggle("is-active", match);
@@ -667,6 +683,20 @@
         .sort((a, b) => a.y - b.y);
     };
 
+    const sectionAtScroll = () => {
+      const marker = window.scrollY + header.offsetHeight + 80;
+      let current = sections[0].id;
+      for (const section of sections) {
+        const top = section.getBoundingClientRect().top + window.scrollY;
+        if (top <= marker) current = section.id;
+        else break;
+      }
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) {
+        current = sections[sections.length - 1].id;
+      }
+      return current;
+    };
+
     const stepThrough = (direction, behavior = "smooth") => {
       const stops = buildStops();
       const position = window.scrollY;
@@ -676,26 +706,13 @@
       if (!stop) return;
       navigationTarget = stop.id;
       clearTimeout(navigationTimer);
-      window.scrollTo({ top: stop.y, behavior: reduceMotion ? "auto" : behavior });
+      window.scrollTo({ top: stop.y, behavior: isMotionReduced() ? "auto" : behavior });
       setActive(stop.id);
       if (window.history?.replaceState) window.history.replaceState(null, "", `#${stop.id}`);
       navigationTimer = setTimeout(() => {
         navigationTarget = null;
         setActive(sectionAtScroll());
-      }, behavior === "auto" ? 80 : 1000);
-    };
-
-    const sectionAtScroll = () => {
-      const marker = window.scrollY + header.offsetHeight + 80;
-      let current = sections[0].id;
-      for (const section of sections) {
-        if (section.offsetTop <= marker) current = section.id;
-        else break;
-      }
-      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) {
-        current = sections[sections.length - 1].id;
-      }
-      return current;
+      }, behavior === "auto" || isMotionReduced() ? 80 : 900);
     };
 
     const updateFromScroll = () => {
@@ -712,13 +729,13 @@
       if (!section || !sections.some((item) => item.id === id)) return;
       navigationTarget = id;
       clearTimeout(navigationTimer);
-      window.scrollTo({ top: anchorTop(section), behavior: reduceMotion ? "auto" : behavior });
+      window.scrollTo({ top: anchorTop(section), behavior: isMotionReduced() ? "auto" : behavior });
       setActive(id);
       if (window.history?.replaceState) window.history.replaceState(null, "", `#${id}`);
       navigationTimer = setTimeout(() => {
         navigationTarget = null;
         setActive(sectionAtScroll());
-      }, behavior === "auto" ? 80 : 1000);
+      }, behavior === "auto" || isMotionReduced() ? 80 : 900);
     };
 
     document.addEventListener("click", (event) => {
@@ -740,6 +757,8 @@
       if (event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
       if (event.key !== "ArrowDown" && event.key !== "ArrowUp") return;
       if ($("dialog[open]")) return;
+      const mobileMenu = $("#mobileMenu");
+      if (mobileMenu && !mobileMenu.hidden) return;
       const focused = document.activeElement;
       if (focused && (["INPUT", "TEXTAREA", "SELECT"].includes(focused.tagName) || focused.isContentEditable)) return;
       event.preventDefault();
@@ -773,16 +792,23 @@
 
     const menu = $("#mobileMenu");
     const toggle = $("#menuToggle");
-    const setMenu = (open) => {
+    const setMenu = (open, returnFocus = false) => {
       menu.hidden = !open;
       toggle.setAttribute("aria-expanded", String(open));
       toggle.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
       toggle.innerHTML = icon(open ? "close" : "menu");
+      if (!open && returnFocus) toggle.focus();
     };
     toggle.addEventListener("click", () => setMenu(menu.hidden));
     $$("a", menu).forEach((link) => link.addEventListener("click", () => setMenu(false)));
     document.addEventListener("click", (event) => {
       if (!menu.hidden && !menu.contains(event.target) && !toggle.contains(event.target)) setMenu(false);
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !menu.hidden) {
+        event.preventDefault();
+        setMenu(false, true);
+      }
     });
   }
 
@@ -810,18 +836,18 @@
   function initRotating() {
     const node = $("#rotatingText");
     const words = PROFILE.hero.rotating;
-    if (!node || words.length < 2 || reduceMotion) return;
+    if (!node || words.length < 2) return;
     let index = 0;
+    node.style.transition = "opacity .18s ease";
     setInterval(() => {
-      if (document.body.classList.contains("motion-paused")) return;
+      if (isMotionReduced()) return;
       index = (index + 1) % words.length;
       node.style.opacity = "0";
       setTimeout(() => {
         node.textContent = words[index];
         node.style.opacity = "1";
       }, 180);
-    }, 2900);
-    node.style.transition = "opacity .18s ease";
+    }, 3200);
   }
 
   function showToast(message) {
@@ -856,6 +882,7 @@
 
   function initKeyboard() {
     document.addEventListener("keydown", (event) => {
+      if ($("dialog[open]")) return;
       const tag = document.activeElement?.tagName;
       if (event.key === "/" && !["INPUT", "TEXTAREA", "SELECT"].includes(tag)) {
         event.preventDefault();

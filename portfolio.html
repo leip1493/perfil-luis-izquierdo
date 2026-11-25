@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0f1211">
+  <meta name="description" content="Portfolio de Luis Izquierdo, Senior Software Engineer especializado en Node.js, NestJS, arquitectura hexagonal e IA agéntica.">
+  <title>Luis Izquierdo — Senior Software Engineer</title>
+  <link rel="icon" type="image/png" href="assets/images/favicon.png">
+  <link rel="stylesheet" href="assets/styles.css">
+  <script defer src="assets/profile-data.js"></script>
+  <script defer src="assets/activity-data.js"></script>
+  <script defer src="assets/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <div class="scroll-progress" aria-hidden="true"><span id="scrollProgress"></span></div>
+  <div class="page-noise" aria-hidden="true"></div>
+
+  <header class="site-header" id="siteHeader">
+    <a class="brand" href="#inicio" aria-label="Luis Izquierdo, ir al inicio">
+      <span class="brand-mark" aria-hidden="true"><img src="assets/images/profile.jpg" alt=""></span>
+      <span class="brand-copy">Luis Izquierdo<small>Senior Software Engineer</small></span>
+    </a>
+
+    <nav class="main-nav" id="mainNav" aria-label="Navegación principal">
+      <a href="#impacto">Impacto</a>
+      <a href="#experiencia">Experiencia</a>
+      <a href="#stack">Stack</a>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#actividad">Actividad</a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="icon-button motion-toggle" id="motionToggle" type="button" aria-label="Pausar animaciones" aria-pressed="false" title="Pausar animaciones">
+        <span data-icon="pause"></span>
+      </button>
+      <a class="button button-small button-outline header-cta" href="#contacto">Hablemos <span data-icon="arrowUpRight"></span></a>
+      <button class="icon-button menu-toggle" id="menuToggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu">
+        <span data-icon="menu"></span>
+      </button>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu" hidden>
+      <a href="#impacto">Impacto</a>
+      <a href="#perfil">Perfil</a>
+      <a href="#experiencia">Experiencia</a>
+      <a href="#stack">Stack</a>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#formacion">Formación</a>
+      <a href="#actividad">Actividad</a>
+      <a href="#contacto">Hablemos</a>
+    </div>
+  </header>
+
+  <nav class="section-rail" id="sectionRail" aria-label="Navegación por secciones"></nav>
+
+  <main id="contenido">
+    <section class="hero section-shell" id="inicio" aria-labelledby="heroTitle">
+      <div class="hero-copy">
+        <div class="availability-line reveal">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span>Disponible para nuevos retos</span>
+          <span class="line-sep" aria-hidden="true">·</span>
+          <span>Remoto LATAM</span>
+        </div>
+
+        <p class="eyebrow reveal" id="heroKicker">Senior Software Engineer · Arquitectura · IA agéntica</p>
+        <h1 class="hero-title reveal" id="heroTitle">
+          No solo escribo código.<br>
+          <span class="editorial-accent">Diseño sistemas</span> que escalan.
+        </h1>
+
+        <p class="hero-summary reveal" id="heroSummary"></p>
+
+        <div class="hero-focus reveal" aria-live="polite">
+          <span class="hero-focus-label">Foco actual</span>
+          <span class="hero-focus-value" id="rotatingText">Arquitectura hexagonal</span>
+        </div>
+
+        <div class="hero-actions reveal">
+          <a class="button button-primary" href="#impacto">Explorar impacto <span data-icon="arrowDown"></span></a>
+          <a class="button button-outline" id="heroLinkedin" href="https://www.linkedin.com/in/luis-enrique-izquierdo-pe%C3%B1a/" target="_blank" rel="noopener noreferrer">Ver LinkedIn <span data-icon="linkedin"></span></a>
+        </div>
+
+        <div class="hero-meta reveal" id="heroMeta"></div>
+      </div>
+
+      <figure class="hero-portrait reveal">
+        <div class="portrait-frame">
+          <img src="assets/images/profile.jpg" alt="Retrato de Luis Izquierdo" width="1024" height="1024">
+        </div>
+        <figcaption class="portrait-caption">
+          <div class="portrait-identity">
+            <strong>Luis Izquierdo</strong>
+            <span>Senior Software Engineer</span>
+          </div>
+          <div class="portrait-disciplines">
+            <span>Node.js · NestJS</span>
+            <span>DDD · Hexagonal · TDD</span>
+          </div>
+        </figcaption>
+      </figure>
+    </section>
+
+    <div class="tech-marquee" aria-label="Tecnologías principales">
+      <div class="marquee-track" id="marqueeTrack"></div>
+    </div>
+
+    <section class="section-shell content-section" id="impacto" aria-labelledby="impactTitle">
+      <div class="section-heading reveal">
+        <div>
+          <p class="section-index">01 / IMPACTO</p>
+          <h2 id="impactTitle">Resultados que se<br><span class="text-muted">sienten en producción.</span></h2>
+        </div>
+        <p class="section-intro">Arquitectura, liderazgo técnico e IA aplicada con un objetivo concreto: reducir fricción, aumentar confianza y construir sistemas que duren.</p>
+      </div>
+
+      <aside class="impact-context reveal" aria-labelledby="impactContextTitle">
+        <div class="impact-context-copy">
+          <p class="mini-label" id="impactContextLabel"></p>
+          <h3 id="impactContextTitle"></h3>
+          <p id="impactContextBody"></p>
+        </div>
+        <dl class="context-terms" id="contextTerms"></dl>
+      </aside>
+
+      <div class="stats-grid" id="statsGrid"></div>
+      <div class="impact-grid" id="impactGrid"></div>
+
+      <div class="impact-feature reveal">
+        <div class="impact-feature-label"><span data-icon="bolt"></span> El cambio más visible · BOMA</div>
+        <div class="impact-comparison">
+          <div class="comparison-old"><span>Antes</span><strong>1 semana</strong><small>por integración</small></div>
+          <div class="comparison-arrow" aria-hidden="true"><span></span><span data-icon="arrowRight"></span></div>
+          <div class="comparison-new"><span>Ahora</span><strong>&lt;30 min</strong><small>autogestionado por squad</small></div>
+        </div>
+        <p>Backoffice Manager (BOMA) es la herramienta con la que cada equipo conecta sus módulos al backoffice. Antes había que coordinar con el equipo central; después, cada squad podía hacerlo solo. Eso produjo <strong>80 integraciones en producción</strong> sobre una base común.</p>
+      </div>
+    </section>
+
+    <section class="section-shell content-section about-section" id="perfil" aria-labelledby="aboutTitle">
+      <div class="about-lead reveal">
+        <p class="section-index">02 / PERFIL</p>
+        <div class="about-identity">
+          <div class="about-photo"><img src="assets/images/profile.jpg" alt="Luis Izquierdo"></div>
+          <div class="about-identity-copy">
+            <strong>Luis Izquierdo</strong>
+            <span>Senior Software Engineer</span>
+            <small>Venezuela · Remoto LATAM</small>
+          </div>
+        </div>
+        <h2 id="aboutTitle">Criterio de ingeniería.<br><span class="editorial-accent">Mentalidad de producto.</span></h2>
+        <p id="aboutLead"></p>
+        <blockquote id="aboutQuote"></blockquote>
+      </div>
+      <div class="about-body reveal">
+        <div id="aboutParagraphs" class="prose"></div>
+        <div class="principles-grid" id="principlesGrid"></div>
+      </div>
+    </section>
+
+    <section class="section-shell content-section" id="experiencia" aria-labelledby="experienceTitle">
+      <div class="section-heading reveal">
+        <div>
+          <p class="section-index">03 / TRAYECTORIA</p>
+          <h2 id="experienceTitle">Ocho años construyendo<br><span class="text-muted">productos críticos.</span></h2>
+        </div>
+        <p class="section-intro">Fintech, banca digital, retail y SaaS. Cada etapa sumó una capa: primero backend, después arquitectura, y hoy liderazgo técnico e ingeniería agéntica.</p>
+      </div>
+      <div class="timeline" id="experienceTimeline"></div>
+    </section>
+
+    <section class="section-shell content-section stack-section" id="stack" aria-labelledby="stackTitle">
+      <div class="section-heading reveal">
+        <div>
+          <p class="section-index">04 / STACK</p>
+          <h2 id="stackTitle">Tecnología con intención.<br><span class="text-muted">No solo herramientas.</span></h2>
+        </div>
+        <p class="section-intro">Explora las tecnologías por área. La arquitectura es el hilo conductor; el stack cambia cuando el problema lo exige.</p>
+      </div>
+
+      <div class="stack-toolbar reveal">
+        <div class="filter-tabs" id="stackFilters" role="tablist" aria-label="Filtrar tecnologías por área"></div>
+        <label class="search-field">
+          <span data-icon="search"></span>
+          <input id="stackSearch" type="search" placeholder="Buscar tecnología…" aria-label="Buscar tecnología">
+          <kbd>/</kbd>
+        </label>
+      </div>
+
+      <div class="stack-layout">
+        <div class="tech-grid" id="techGrid" role="tabpanel"></div>
+        <aside class="architecture-card reveal" aria-labelledby="architectureTitle">
+          <div class="architecture-card-header">
+            <div><p class="mini-label">PATRÓN CENTRAL</p><h3 id="architectureTitle">Arquitectura hexagonal</h3></div>
+            <span data-icon="layers"></span>
+          </div>
+          <p>El negocio en el centro. La tecnología en los bordes.</p>
+          <div class="hex-diagram" id="hexDiagram">
+            <svg class="flow-route" viewBox="0 0 250 250" aria-hidden="true">
+              <path class="flow-track" pathLength="100" d="M 125 10 C 195 10 240 65 240 125 C 240 195 195 240 125 240 C 55 240 10 195 10 125 C 10 55 55 10 125 10" />
+              <circle class="flow-dot" r="4">
+                <animateMotion id="flowMotion" dur="6.2s" begin="indefinite" fill="freeze" path="M 125 10 C 195 10 240 65 240 125 C 240 195 195 240 125 240 C 55 240 10 195 10 125 C 10 55 55 10 125 10" />
+              </circle>
+            </svg>
+            <div class="hex-ring ring-outer">
+              <span class="flow-node node-rest" title="Adaptador de entrada HTTP">REST</span>
+              <span class="flow-node node-db" title="Adaptador de base de datos">DATOS</span>
+              <span class="flow-node node-events" title="Salida asíncrona mediante eventos">EVENTOS</span>
+              <span class="flow-node node-client" title="Quien consume la API">CLIENTE</span>
+            </div>
+            <div class="hex-ring ring-inner">
+              <span class="flow-node node-ports" title="Contratos entre el dominio y el exterior">PUERTOS</span>
+              <span class="flow-node node-usecase" title="Acción de negocio coordinada">CASO DE USO</span>
+            </div>
+            <div class="hex-core flow-node" id="flowCore" title="Reglas y modelos del negocio"><span data-icon="box"></span><strong>DDD</strong></div>
+          </div>
+          <div class="flow-caption" aria-live="polite" aria-atomic="true">
+            <span class="flow-step-count" id="flowStepCount">6 PASOS · 6 SEGUNDOS</span>
+            <strong id="flowStepTitle">Cómo viaja una request</strong>
+            <p id="flowStepText">Pulsa el botón para seguir el recorrido desde que entra una petición hasta que vuelve la respuesta.</p>
+          </div>
+          <div class="flow-progress" aria-hidden="true"><span id="flowProgress"></span></div>
+          <button class="button button-small button-outline flow-button" id="runFlow" type="button"><span data-icon="play"></span> Ver flujo de una request</button>
+          <div class="architecture-legend"><span><i class="legend-core"></i> Dominio</span><span><i class="legend-port"></i> Puertos</span><span><i class="legend-adapter"></i> Adaptadores</span></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section-shell content-section" id="proyectos" aria-labelledby="projectsTitle">
+      <div class="section-heading reveal">
+        <div>
+          <p class="section-index">05 / PROYECTOS</p>
+          <h2 id="projectsTitle">Ideas que salieron<br><span class="text-muted">del código.</span></h2>
+        </div>
+        <p class="section-intro">Desde plataformas financieras multi-tenant hasta experimentos personales con IA, mobile y automatización.</p>
+      </div>
+      <div class="projects-grid" id="projectsGrid"></div>
+    </section>
+
+    <section class="section-shell content-section" id="formacion" aria-labelledby="educationTitle">
+      <div class="section-heading reveal">
+        <div>
+          <p class="section-index">06 / FORMACIÓN</p>
+          <h2 id="educationTitle">Base sólida.<br><span class="text-muted">Aprendizaje continuo.</span></h2>
+        </div>
+        <p class="section-intro">Ingeniería, redes, modelado del dominio, Rust, Android y una curiosidad permanente por entender cómo funcionan los sistemas.</p>
+      </div>
+      <div class="education-layout">
+        <div>
+          <h3 class="subheading">Educación</h3>
+          <div class="education-grid" id="educationGrid"></div>
+          <h3 class="subheading languages-title">Idiomas</h3>
+          <div class="languages-list" id="languagesList"></div>
+        </div>
+        <div>
+          <h3 class="subheading">Certificaciones <span class="count-badge" id="certificationCount"></span></h3>
+          <div class="certifications-grid" id="certificationsGrid"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-shell content-section activity-section" id="actividad" aria-labelledby="activityTitle">
+      <div class="section-heading reveal">
+        <div>
+          <p class="section-index">07 / ACTIVIDAD</p>
+          <h2 id="activityTitle">Aprender en público.<br><span class="text-muted">Compartir el camino.</span></h2>
+        </div>
+        <p class="section-intro">Experimentos, reflexiones y recursos sobre backend, arquitectura, IA agéntica y vida profesional. Filtra y entra en cada publicación.</p>
+      </div>
+
+      <div class="activity-toolbar reveal">
+        <div class="activity-toolbar-note"><span data-icon="pen"></span><span>Publicaciones propias</span></div>
+        <label class="search-field">
+          <span data-icon="search"></span>
+          <input id="activitySearch" type="search" placeholder="Buscar en mis publicaciones…" aria-label="Buscar en mis publicaciones">
+        </label>
+      </div>
+      <p class="activity-count" id="activityCount" aria-live="polite"></p>
+      <div class="activity-grid" id="activityGrid"></div>
+    </section>
+
+    <section class="contact-section section-shell" id="contacto" aria-labelledby="contactTitle">
+      <div class="contact-content reveal">
+        <div class="availability-line">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span>Abierto a oportunidades remotas</span>
+        </div>
+        <p class="section-index">08 / SIGUIENTE PASO</p>
+        <h2 id="contactTitle">¿Construimos algo<br><span class="editorial-accent">que valga la pena?</span></h2>
+        <p class="contact-lead">Arquitectura, liderazgo técnico, backend o IA aplicada al desarrollo. Si hay un reto interesante, me gustaría conocerlo.</p>
+        <div class="contact-actions">
+          <a class="button button-primary" id="emailLink" href="mailto:leip1493@gmail.com"><span data-icon="mail"></span> leip1493@gmail.com</a>
+          <button class="button button-outline" id="copyEmail" type="button"><span data-icon="copy"></span> Copiar correo</button>
+        </div>
+        <div class="contact-links">
+          <a id="contactLinkedin" href="https://www.linkedin.com/in/luis-enrique-izquierdo-pe%C3%B1a/" target="_blank" rel="noopener noreferrer"><span data-icon="linkedin"></span> LinkedIn <span data-icon="arrowUpRight"></span></a>
+          <a id="contactGithub" href="https://github.com/leip1493" target="_blank" rel="noopener noreferrer"><span data-icon="github"></span> GitHub <span data-icon="arrowUpRight"></span></a>
+        </div>
+      </div>
+
+      <aside class="contact-dossier reveal" aria-label="Resumen de disponibilidad">
+        <p class="mini-label">DISPONIBILIDAD Y ENFOQUE</p>
+        <dl class="dossier-list">
+          <div>
+            <dt>Rol</dt>
+            <dd>Senior Software Engineer / Tech Lead</dd>
+          </div>
+          <div>
+            <dt>Modalidad</dt>
+            <dd>Remoto para equipos LATAM</dd>
+          </div>
+          <div>
+            <dt>Especialidad</dt>
+            <dd>Arquitectura, plataformas multi-tenant, Node.js / NestJS e IA agéntica</dd>
+          </div>
+          <div>
+            <dt>Idiomas</dt>
+            <dd>Español nativo · Inglés técnico</dd>
+          </div>
+        </dl>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="site-footer section-shell">
+    <div class="footer-top">
+      <a class="brand" href="#inicio"><span class="brand-mark" aria-hidden="true"><img src="assets/images/profile.jpg" alt=""></span><span class="brand-copy">Luis Izquierdo<small>Senior Software Engineer</small></span></a>
+      <p>Diseñar sistemas claros es una forma de cuidar a quienes los construyen, los operan y los usan.</p>
+      <a class="back-top" href="#inicio">Volver arriba <span data-icon="arrowUp"></span></a>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="currentYear"></span> Luis Izquierdo</span>
+      <span>Datos y foto de LinkedIn · Actualizado el 24 nov 2026</span>
+      <div class="source-links">
+        <a href="index.html">Panel principal</a>
+        <a href="data/profile.json" download>Perfil JSON</a>
+        <a href="data/activity.json" download>Actividad JSON</a>
+      </div>
+    </div>
+  </footer>
+
+  <dialog class="project-dialog" id="projectDialog" aria-labelledby="dialogTitle">
+    <div class="dialog-panel">
+      <button class="dialog-close icon-button" id="dialogClose" type="button" aria-label="Cerrar detalle"><span data-icon="close"></span></button>
+      <div id="dialogContent"></div>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <noscript><div class="noscript">Esta página necesita JavaScript para mostrar las visualizaciones e interacciones.</div></noscript>
+</body>
+</html>

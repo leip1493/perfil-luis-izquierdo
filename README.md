@@ -9,13 +9,15 @@ Este repositorio es la fuente única del proyecto. No hay carpetas de publicaci�
 
 ## Abrir en local
 
-- Página modular: abre `index.html` con doble clic.
+- Panel principal: abre `index.html` con doble clic.
+- Portfolio largo: abre `portfolio.html`.
 - Versión de un solo archivo: abre `perfil-luis-izquierdo.html`.
 - No requiere servidor, instalación ni dependencias externas.
 
 ## Contenido
 
-- Hero animado, foto de perfil y visualización orbital.
+- Panel principal (`index.html`): resumen ejecutivo, métricas, lo esencial, caso BOMA, experiencia reciente y pestañas de detalle para móvil y escritorio.
+- Portfolio completo (`portfolio.html`): hero animado, foto de perfil y visualización orbital.
 - Métricas de impacto con contexto de BOMA, Nucleus, multi-tenant, squad y BFF.
 - Perfil, principios de ingeniería y filosofía de trabajo.
 - 6 experiencias con detalle expandible.
@@ -33,8 +35,9 @@ Este repositorio es la fuente única del proyecto. No hay carpetas de publicaci�
 
 ```text
 perfil-luis-izquierdo/
-├── index.html                    # Página modular
-├── perfil-luis-izquierdo.html    # Página todo-en-uno
+├── index.html                    # Panel principal
+├── portfolio.html                # Portfolio completo
+├── perfil-luis-izquierdo.html    # Página todo-en-uno del portfolio
 ├── README.md
 ├── robots.txt
 ├── .nojekyll                     # Evita el procesado de Jekyll en GitHub Pages
@@ -42,6 +45,8 @@ perfil-luis-izquierdo/
 ├── assets/
 │   ├── styles.css
 │   ├── app.js
+│   ├── panel.css                 # Estilos del panel
+│   ├── panel.js                  # Pestañas y renderizado del panel
 │   ├── profile-data.js
 │   ├── activity-data.js
 │   └── images/

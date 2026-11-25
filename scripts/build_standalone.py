@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Genera una versión todo-en-uno del portfolio."""
+"""Genera una versión todo-en-uno del portfolio completo."""
 import base64
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-html = (ROOT / "index.html").read_text(encoding="utf-8")
+html = (ROOT / "portfolio.html").read_text(encoding="utf-8")
 css = (ROOT / "assets" / "styles.css").read_text(encoding="utf-8")
 profile_js = (ROOT / "assets" / "profile-data.js").read_text(encoding="utf-8")
 activity_js = (ROOT / "assets" / "activity-data.js").read_text(encoding="utf-8")

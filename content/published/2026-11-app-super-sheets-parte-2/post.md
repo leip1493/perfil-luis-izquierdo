@@ -7,7 +7,7 @@ published_at: "2026-11-26"
 activity_id: "activity-01"
 platform: linkedin
 format: "post + carrusel (slides.pdf)"
-link: "https://lnkd.in/p/eDb5-4mq"
+link: "https://lnkd.in/p/eyJtpd-a"
 demo_url: "https://script.google.com/macros/s/AKfycbzfhQ0cwqw0i6upPb4tRyVScO9cQ0AL6m_1W4JC2JuiAklepkZi7x82VtkOj5qO4y1u/exec"
 tags:
   - AppsScript

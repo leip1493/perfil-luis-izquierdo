@@ -1361,6 +1361,198 @@
   .cover-stage { margin-top: auto; padding-top: 36px; }
 
   /* ============================================================
+     Legibilidad móvil — escala tipográfica para celular
+     ============================================================ */
+  .slide { padding: 54px 64px 46px; }
+
+  .top { min-height: 44px; gap: 20px; }
+
+  .kicker {
+    font-size: 20px;
+    letter-spacing: 0.14em;
+    color: var(--lichen);
+  }
+
+  .badge {
+    gap: 10px;
+    padding: 8px 14px;
+    font-size: 19px;
+    letter-spacing: 0.1em;
+    color: var(--ink);
+    border-color: rgba(141, 184, 154, 0.44);
+    background: rgba(33, 74, 54, 0.4);
+  }
+
+  .badge .dot { width: 8px; height: 8px; }
+
+  h1.title {
+    margin-top: 32px;
+    font-size: 70px;
+    line-height: 1.06;
+    max-width: 952px;
+  }
+
+  h1.cover-title {
+    margin-top: 30px;
+    font-size: 84px;
+    line-height: 1.04;
+  }
+
+  .lead {
+    margin-top: 18px;
+    font-size: 30px;
+    line-height: 1.45;
+    max-width: 900px;
+  }
+
+  .note {
+    margin-top: 14px;
+    font-size: 26px;
+    line-height: 1.45;
+    color: #b9c5bd;
+    max-width: 900px;
+  }
+
+  .foot {
+    padding-top: 16px;
+    font-size: 20px;
+    color: #b6c1ba;
+  }
+
+  .foot .page {
+    font-size: 19px;
+    letter-spacing: 0.08em;
+    color: var(--lichen);
+  }
+
+  .stage { margin-top: 26px; }
+
+  .takeaway {
+    gap: 20px;
+    padding: 22px 26px;
+    border-color: rgba(237, 241, 238, 0.14);
+  }
+
+  .takeaway .tl {
+    font-size: 19px;
+    letter-spacing: 0.12em;
+    color: var(--lichen);
+  }
+
+  .takeaway p { font-size: 27px; line-height: 1.42; }
+
+  .slide:has(.takeaway) .foot { margin-top: 20px; }
+
+  /* ---------- portada ---------- */
+  .cover-sub {
+    margin-top: 18px;
+    font-size: 30px;
+    line-height: 1.45;
+    max-width: 860px;
+  }
+
+  .cover-chips { gap: 10px; margin-top: 20px; }
+
+  .cover-chips .c {
+    font-size: 21px;
+    letter-spacing: 0.06em;
+    padding: 9px 15px;
+  }
+
+  .cover-stage { padding-top: 28px; }
+
+  .cover-caption {
+    margin-top: 14px;
+    font-size: 20px;
+    letter-spacing: 0.08em;
+    color: #b6c1ba;
+  }
+
+  .cover-caption .r { color: var(--lichen); }
+
+  /* ---------- capturas reales ---------- */
+  .shot--cover { height: 560px; }
+  .shot--sheet { width: 820px; }
+  .shot--menu { height: 500px; }
+  .shot--ide { height: 690px; }
+  .shot--ide img { width: 140%; }
+  .shot--deploy { width: 740px; }
+
+  /* ---------- slide 4 · prompt ---------- */
+  .prompt-card { padding: 26px 28px; }
+  .prompt-card .prompt-head { margin-bottom: 18px; padding-bottom: 16px; }
+  .prompt-card .prompt-head .tag {
+    font-size: 19px;
+    letter-spacing: 0.12em;
+    color: var(--lichen);
+  }
+  .prompt-card .prompt-head .copy {
+    font-size: 19px;
+    letter-spacing: 0.08em;
+    padding: 6px 12px;
+    color: var(--ink-soft);
+  }
+  .prompt-text { font-size: 34px; line-height: 1.5; }
+  .prompt-text p + p { margin-top: 18px; }
+  .prompt-text .chip { font-size: 22px; padding: 3px 9px; }
+  .prompt-list { margin-top: 14px; gap: 10px; }
+  .prompt-list li { padding-left: 26px; font-size: 32px; line-height: 1.4; }
+  .file-chips { margin-top: 24px; gap: 12px; }
+  .file-chips .fc { padding: 12px 16px; font-size: 24px; }
+
+  /* ---------- slide 5 · archivos ---------- */
+  .file-rows { gap: 14px; margin-top: 24px; }
+  .file-row { padding: 18px 20px; gap: 14px; }
+  .file-row .nm { font-size: 26px; }
+  .file-row .ds {
+    font-size: 26px;
+    line-height: 1.4;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- slide 6 · deploy ---------- */
+  .deploy-stage { margin-top: 24px; height: 590px; }
+  .url-chip {
+    margin-top: 18px;
+    gap: 14px;
+    padding: 16px 20px;
+    font-size: 20px;
+    color: var(--ink);
+  }
+  .url-chip .ok {
+    font-size: 19px;
+    letter-spacing: 0.08em;
+    padding: 5px 12px;
+  }
+
+  /* ---------- slide 7 · iterar ---------- */
+  .iter-list { gap: 14px; margin-top: 26px; }
+  .iter {
+    grid-template-columns: 44px minmax(0, 1fr);
+    gap: 18px;
+    padding: 22px 24px;
+  }
+  .iter .n { font-size: 20px; letter-spacing: 0.04em; padding-top: 2px; }
+  .iter strong { font-size: 29px; line-height: 1.2; }
+  .iter span {
+    margin-top: 5px;
+    font-size: 26px;
+    line-height: 1.4;
+    color: var(--ink-soft);
+  }
+  .iter .fname-em { font-size: 22px; }
+
+  .bridge { margin-top: 24px; padding: 22px 24px; }
+  .bridge .tag {
+    font-size: 19px;
+    letter-spacing: 0.12em;
+    color: var(--lichen);
+  }
+  .bridge p { margin-top: 10px; font-size: 26px; line-height: 1.45; }
+
+  .cta { margin-top: 28px; padding-top: 22px; font-size: 35px; line-height: 1.3; }
+
+  /* ============================================================
      Exportación a PDF: 1 slide = 1 página exacta (1080 × 1350 px)
      ============================================================ */
   @page {
@@ -1453,11 +1645,11 @@
       <span class="badge"><span class="dot"></span>0 servidores</span>
     </div>
 
-    <h1 class="title">Crea tu hoja en <span class="accent">Google Sheets</span></h1>
+    <h1 class="title">Tu hoja en <span class="accent">Google Sheets</span></h1>
 
-    <p class="lead">No necesitas base de datos. Tu hoja <strong>es</strong> la base de datos: una pestaña llamada <strong>Compras</strong> y cinco columnas bastan para arrancar.</p>
+    <p class="lead">No necesitas base de datos: una pestaña <strong>Compras</strong> y cinco columnas bastan para arrancar.</p>
 
-    <p class="note"><span class="tick">→</span><span>¿Sin datos todavía? Pídele a Gemini una tabla de ejemplo con 15 filas y estas columnas: Fecha, Producto, Categoría, Comercio, Monto.</span></p>
+    <p class="note"><span class="tick">→</span><span>¿Sin datos? Pídele a Gemini 15 filas con estas columnas.</span></p>
 
     <div class="stage">
       <figure class="shot shot--sheet">
@@ -1467,7 +1659,7 @@
 
     <div class="takeaway">
       <span class="tl">En una frase</span>
-      <p>Tu hoja <b>es</b> la base de datos: editas una fila y la app ya muestra el cambio. <b>Cero migraciones, cero backend.</b></p>
+      <p>Editas una fila y la app muestra el cambio. <b>Cero migraciones, cero backend.</b></p>
     </div>
 
     <footer class="foot">
@@ -1530,36 +1722,12 @@
             <li>Barras de gasto por categoría y tabla con el detalle.</li>
             <li>Sin login ni dependencias externas.</li>
           </ul>
-          <p class="q">Devuélveme dos archivos completos, listos para pegar: <span class="chip">Code.gs</span> e <span class="chip">index.html</span>.</p>
+          <p class="q">Devuélveme dos archivos completos, listos para pegar.</p>
         </div>
 
         <div class="file-chips">
           <span class="fc"><i></i>Code.gs</span>
           <span class="fc html"><i></i>index.html</span>
-        </div>
-      </div>
-
-      <div class="reply">
-        <span class="rl">La IA responde</span>
-        <div class="rfiles">
-          <span class="rf">Code.gs <span class="ok">✓ listo</span></span>
-          <span class="rf">index.html <span class="ok">✓ listo</span></span>
-        </div>
-        <span class="hint">copiar y pegar</span>
-      </div>
-
-      <div class="anatomy">
-        <div class="pa">
-          <b>Contexto</b>
-          <span>Un Sheet real, con la pestaña y los datos que ya tienes.</span>
-        </div>
-        <div class="pa">
-          <b>Columnas</b>
-          <span>Los nombres exactos de la fila 1, tal como están escritos.</span>
-        </div>
-        <div class="pa">
-          <b>Salida</b>
-          <span>Dos archivos completos y cómo desplegarlos.</span>
         </div>
       </div>
     </div>
@@ -1621,7 +1789,7 @@
 
     <h1 class="title">Publica tu app en <span class="accent">3 clics</span></h1>
 
-    <p class="lead"><strong>Implementar → Nueva implementación → Aplicación web</strong>. Aceptas los permisos y ya tienes un link propio para abrir desde el navegador o el teléfono.</p>
+    <p class="lead"><strong>Implementar → Nueva implementación → Aplicación web</strong>. Aceptas los permisos y ya tienes tu link propio.</p>
 
     <div class="deploy-stage">
       <div class="ghost-lines"></div>
@@ -1638,7 +1806,7 @@
 
     <div class="takeaway">
       <span class="tl">El resultado</span>
-      <p>Ese link <b>es la app</b>: se abre en cualquier navegador, se comparte como una URL normal y <b>no hay hosting que pagar</b>.</p>
+      <p>Ese link <b>es la app</b>: se abre en cualquier navegador y <b>no&nbsp;pagas&nbsp;hosting</b>.</p>
     </div>
 
     <footer class="foot">
@@ -1694,24 +1862,7 @@
       <p>Cuando copiar y pegar ya no alcanza: <b>archivos modulares, tests (TDD) y un agente de código</b> con reglas claras. El mismo Sheet, otro nivel de ingeniería.</p>
     </div>
 
-    <div class="recap">
-      <span class="rlabel">Todo el flujo, en 6 pasos</span>
-      <div class="steps">
-        <span class="s"><b>01</b>Hoja + datos</span>
-        <span class="arrow">›</span>
-        <span class="s"><b>02</b>Extensiones</span>
-        <span class="arrow">›</span>
-        <span class="s"><b>03</b>Prompt a la IA</span>
-        <span class="arrow">›</span>
-        <span class="s"><b>04</b>Pegar y guardar</span>
-        <span class="arrow">›</span>
-        <span class="s"><b>05</b>Implementar</span>
-        <span class="arrow">›</span>
-        <span class="s"><b>06</b>Iterar</span>
-      </div>
-    </div>
-
-    <p class="cta">¿Qué herramienta sencilla montarías primero <span class="accent">sobre un Google Sheet?</span></p>
+    <p class="cta">¿Qué herramienta sencilla montarías primero <span class="accent">sobre un Google&nbsp;Sheet?</span></p>
 
     <footer class="foot">
       <span class="who"><b>Luis Izquierdo</b><span class="sep">·</span>Senior Software Engineer</span>

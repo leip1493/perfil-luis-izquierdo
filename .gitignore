@@ -3,3 +3,5 @@ preview/
 data/linkedin-raw.json
 data/linkedin-posts-extended.json
 *.zip
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json

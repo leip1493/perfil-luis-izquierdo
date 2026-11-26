@@ -26,7 +26,11 @@ Repositorio único del portfolio público (GitHub Pages en `main` / raíz) y del
 
 ## Tono y estilo editorial
 
-- Español claro, directo, en primera persona, sin humo ni buzzwords vacíos.
+- **Idioma y variante:** español neutro latinoamericano con **tuteo** (*tú*: *pides, abres, pegas, tienes, puedes, haces*), acorde a la voz de Luis (Venezuela).
+- **Evitar estrictamente:**
+  - Voseo rioplatense/argentino (*vos*, *pedís, abrís, pegás, tenés, podés, hacés, querés, usás, armás, sabés, sos*) y modismos argentinos (*laburo, posta, che, etc.*).
+  - Español de España (*vosotros, hacéis, ordenador, coger*). Para dispositivos, usar *teléfono* o *celular* (no *móvil* como sustantivo principal, aunque *mobile-first* como término técnico está bien).
+- Estilo claro, directo, en primera persona, sin humo ni buzzwords vacíos.
 - Enfoque práctico basado en experiencia real (arquitectura, TDD, backend, IA agéntica con criterio de ingeniería).
 - Estructurar posts con gancho inicial concreto, puntos escaneables y cierre con aprendizaje real o pregunta abierta.
 

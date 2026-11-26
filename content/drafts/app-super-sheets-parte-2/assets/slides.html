@@ -1,0 +1,1724 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Carrusel LinkedIn — De una hoja de cálculo a una web app | Luis Izquierdo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  /* ============================================================
+     Identidad visual — verde grafito (tomada de assets/panel.css)
+     ============================================================ */
+  :root {
+    --bg: #0f1211;
+    --surface: #151918;
+    --card: #191e1c;
+    --card-hover: #1f2623;
+    --ink: #edf1ee;
+    --ink-soft: #c5cec8;
+    --muted: #8a958e;
+    --muted-dim: #626d67;
+    --forest: #214a36;
+    --forest-border: #386e54;
+    --moss: #6d987b;
+    --lichen: #8db89a;
+    --moss-soft: rgba(109, 152, 123, 0.14);
+    --line: rgba(237, 241, 238, 0.09);
+    --line-strong: rgba(237, 241, 238, 0.18);
+    --paper: #f3f6f3;
+    --paper-ink: #1c2620;
+    --paper-line: #d7e0d8;
+    --amber: #d8b374;
+    --font-serif: "Iowan Old Style", Palatino, "Palatino Linotype", "Book Antiqua", Georgia, serif;
+    --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "Segoe UI", sans-serif;
+    --font-mono: "SF Mono", ui-monospace, "Cascadia Code", Menlo, Consolas, monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html { background: #080a09; }
+
+  body {
+    margin: 0;
+    background: #080a09;
+    color: var(--ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, p, ul, ol, figure { margin: 0; padding: 0; }
+  ul, ol { list-style: none; }
+
+  /* ============================================================
+     Lienzo — 1080 × 1350 px (4:5)
+     ============================================================ */
+  .deck {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 36px;
+    padding: 40px 0;
+  }
+
+  .slide {
+    position: relative;
+    width: 1080px;
+    height: 1350px;
+    flex: 0 0 auto;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 62px 76px 54px;
+    background:
+      radial-gradient(120% 70% at 100% 0%, rgba(56, 110, 84, 0.20) 0%, rgba(33, 74, 54, 0.05) 42%, transparent 70%),
+      radial-gradient(90% 60% at 0% 100%, rgba(109, 152, 123, 0.09) 0%, transparent 62%),
+      var(--bg);
+    color: var(--ink);
+  }
+
+  /* textura fina: líneas verticales apenas visibles */
+  .slide::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(90deg, rgba(237, 241, 238, 0.028) 0 1px, transparent 1px 96px);
+    pointer-events: none;
+  }
+
+  .slide > * { position: relative; z-index: 1; }
+
+  /* ---------- cabecera de slide ---------- */
+  .top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    min-height: 30px;
+  }
+
+  .kicker {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--moss);
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(109, 152, 123, 0.32);
+    background: rgba(33, 74, 54, 0.26);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+
+  .badge .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #52b777;
+    box-shadow: 0 0 0 3px rgba(82, 183, 119, 0.16);
+  }
+
+  /* ---------- titulares ---------- */
+  h1.title {
+    margin-top: 40px;
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 60px;
+    line-height: 1.08;
+    letter-spacing: -0.022em;
+    color: var(--ink);
+    max-width: 900px;
+  }
+
+  h1.title .accent {
+    font-style: italic;
+    color: var(--lichen);
+  }
+
+  h1.cover-title {
+    margin-top: 34px;
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 76px;
+    line-height: 1.03;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+  }
+
+  h1.cover-title .accent {
+    font-style: italic;
+    color: var(--lichen);
+  }
+
+  .step {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-top: 34px;
+  }
+
+  .step-num {
+    font-family: var(--font-serif);
+    font-size: 34px;
+    line-height: 1;
+    color: var(--lichen);
+    letter-spacing: -0.02em;
+  }
+
+  .step-label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .lead {
+    margin-top: 22px;
+    font-size: 25px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    max-width: 790px;
+  }
+
+  .lead strong { color: var(--ink); font-weight: 600; }
+
+  .lead .hl {
+    color: var(--lichen);
+    font-weight: 600;
+  }
+
+  .note {
+    margin-top: 18px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-size: 19px;
+    line-height: 1.5;
+    color: var(--muted);
+    max-width: 780px;
+  }
+
+  .note .tick {
+    flex: 0 0 auto;
+    margin-top: 3px;
+    color: var(--lichen);
+    font-family: var(--font-mono);
+  }
+
+  /* ---------- pie ---------- */
+  .foot {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    font-size: 15px;
+    color: var(--muted);
+  }
+
+  .foot .who {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--ink-soft);
+    letter-spacing: 0.01em;
+  }
+
+  .foot .who b { font-weight: 600; color: var(--ink); }
+
+  .foot .who .sep { color: var(--muted-dim); }
+
+  .foot .page {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    color: var(--moss);
+  }
+
+  /* ============================================================
+     Mockups genéricos
+     ============================================================ */
+  .stage { margin-top: 34px; }
+
+  /* ---------- capturas reales ---------- */
+  figure.shot { margin: 0; }
+
+  .shot {
+    position: relative;
+    overflow: hidden;
+    border-radius: 14px;
+    border: 1px solid rgba(237, 241, 238, 0.18);
+    background: #0b0e0d;
+    box-shadow: 0 34px 60px -28px rgba(0, 0, 0, 0.75);
+  }
+
+  .shot img { display: block; width: 100%; height: auto; }
+
+  .shot--cover { height: 520px; }
+  .shot--cover img { height: 100%; object-fit: cover; object-position: center; }
+
+  .shot--sheet { width: 760px; margin: 0 auto; }
+
+  .shot--menu { height: 487px; }
+  .shot--menu img { width: 147.5%; max-width: none; }
+
+  .shot--ide { height: 532px; }
+  .shot--ide img { width: 125%; max-width: none; }
+
+  .shot--deploy { width: 700px; margin: 0 auto; }
+
+  .win {
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--paper);
+    color: var(--paper-ink);
+    border: 1px solid rgba(237, 241, 238, 0.16);
+    box-shadow: 0 34px 60px -28px rgba(0, 0, 0, 0.75);
+    font-family: var(--font-sans);
+  }
+
+  .win--dark {
+    background: #121716;
+    color: var(--ink);
+    border-color: var(--line-strong);
+  }
+
+  .win-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: #e7ece7;
+    border-bottom: 1px solid #cfd9d1;
+    color: #4a5a50;
+    font-size: 13px;
+  }
+
+  .win--dark .win-bar {
+    background: #171d1b;
+    border-bottom: 1px solid var(--line);
+    color: var(--muted);
+  }
+
+  .dots { display: flex; gap: 6px; flex: 0 0 auto; }
+  .dots i {
+    width: 9px; height: 9px; border-radius: 50%;
+    background: #c2cec4;
+  }
+  .win--dark .dots i { background: #38433d; }
+
+  .win-bar .name {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: #3d4c43;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .win--dark .win-bar .name { color: var(--ink-soft); }
+
+  .win-bar .spacer { flex: 1; }
+
+  .win-bar .pill {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 999px;
+    border: 1px solid #c3d0c6;
+    color: #4f6156;
+    white-space: nowrap;
+  }
+
+  .win--dark .win-bar .pill {
+    border-color: rgba(109, 152, 123, 0.4);
+    color: var(--lichen);
+  }
+
+  /* ---------- Google Sheets ---------- */
+  .sheet-menu {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 8px 16px;
+    font-size: 14px;
+    color: #46564c;
+    border-bottom: 1px solid #e2e8e2;
+  }
+
+  .sheet-menu .m { position: relative; padding: 2px 0; white-space: nowrap; }
+
+  .sheet-menu .m.is-active {
+    color: #10462e;
+    font-weight: 700;
+    border-bottom: 2px solid #1f7a4c;
+  }
+
+  .sheet-menu .menu-hl {
+    background: rgba(31, 122, 76, 0.14);
+    color: #0f4a30;
+    font-weight: 600;
+    border-radius: 5px;
+    padding: 3px 8px;
+    margin-left: -8px;
+    box-shadow: inset 0 0 0 1px rgba(31, 122, 76, 0.35);
+  }
+
+  .sheet-tools {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 7px 16px;
+    border-bottom: 1px solid #e2e8e2;
+    color: #7d8b81;
+  }
+
+  .sheet-tools .ico {
+    width: 18px; height: 18px;
+    border-radius: 4px;
+    background: #dfe7e0;
+  }
+  .sheet-tools .ico.round { border-radius: 50%; }
+  .sheet-tools .ico.wide { width: 54px; }
+  .sheet-tools .divider { width: 1px; height: 18px; background: #dbe3dc; }
+
+  .sheet-formula {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 7px 16px;
+    border-bottom: 1px solid #dbe3dc;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: #5c6b61;
+  }
+
+  .sheet-formula .cell-ref {
+    min-width: 42px;
+    text-align: center;
+    padding: 2px 6px;
+    border: 1px solid #cfd9d1;
+    border-radius: 4px;
+    color: #33443a;
+  }
+
+  .sheet-formula .fx { color: #93a198; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 42px 132px minmax(0, 1fr) 148px 168px 92px;
+    font-size: 15px;
+  }
+
+  .grid .cell {
+    padding: 9px 10px;
+    border-right: 1px solid var(--paper-line);
+    border-bottom: 1px solid var(--paper-line);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-height: 39px;
+  }
+
+  .grid .colhead {
+    background: #eaf0ea;
+    font-weight: 600;
+    color: #3c4d42;
+    font-size: 14px;
+  }
+
+  .grid .rownum {
+    background: #eaf0ea;
+    text-align: center;
+    color: #8b978d;
+    font-size: 12px;
+    font-family: var(--font-mono);
+    padding-inline: 0;
+  }
+
+  .grid .num {
+    text-align: right;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: #2c3f33;
+  }
+
+  .grid .cat { color: #3c4d42; }
+  .grid .sel {
+    box-shadow: inset 0 0 0 2px #1f7a4c;
+    background: rgba(31, 122, 76, 0.07);
+  }
+
+  .tabbar {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 14px 10px;
+    background: #eef3ee;
+    border-top: 1px solid #dbe3dc;
+    font-size: 13px;
+  }
+
+  .tabbar .tab {
+    padding: 5px 16px;
+    border-radius: 6px 6px 0 0;
+    color: #4c5c52;
+  }
+
+  .tabbar .tab.active {
+    background: var(--paper);
+    color: #124a31;
+    font-weight: 700;
+    box-shadow: 0 -1px 0 #cfd9d1, inset 0 2px 0 #1f7a4c;
+  }
+
+  .tabbar .add {
+    margin-left: 6px;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    border: 1px solid #cdd8ce;
+    color: #6c7d72;
+    display: grid;
+    place-items: center;
+    font-size: 15px;
+    line-height: 1;
+  }
+
+  /* dropdown de menú */
+  .dropdown {
+    position: absolute;
+    top: 40px;
+    left: -140px;
+    width: 280px;
+    background: #ffffff;
+    border: 1px solid #d7e2d9;
+    border-radius: 10px;
+    box-shadow: 0 28px 50px -14px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(28, 38, 32, 0.05);
+    padding: 8px;
+    z-index: 5;
+    font-size: 15px;
+  }
+
+  .dropdown .item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 9px 10px;
+    border-radius: 6px;
+    color: #3b4a41;
+  }
+
+  .dropdown .item + .item { margin-top: 1px; }
+
+  .dropdown .item.is-target {
+    background: #e6f2e9;
+    color: #0e462d;
+    font-weight: 700;
+    box-shadow: inset 0 0 0 1px rgba(31, 122, 76, 0.4);
+  }
+
+  .dropdown .kbd {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: #8b978d;
+    letter-spacing: 0.06em;
+  }
+
+  .dropdown .item.is-target .kbd { color: #2f7d55; }
+
+  .dropdown .hr { height: 1px; background: #eef2ee; margin: 6px 4px; }
+
+  /* ---------- Apps Script IDE ---------- */
+  .ide {
+    display: grid;
+    grid-template-columns: 250px minmax(0, 1fr);
+    min-height: 620px;
+  }
+
+  .ide-side {
+    border-right: 1px solid var(--line);
+    background: #101413;
+    padding: 12px 0;
+  }
+
+  .ide-side .side-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 16px 12px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted-dim);
+  }
+
+  .ide-side .file {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--ink-soft);
+    border-left: 2px solid transparent;
+  }
+
+  .ide-side .file .ext {
+    width: 8px; height: 8px;
+    border-radius: 2px;
+    background: var(--muted-dim);
+    flex: 0 0 auto;
+  }
+
+  .ide-side .file .ext.html { background: var(--amber); }
+  .ide-side .file .ext.json { background: #6b8f7a; }
+
+  .ide-side .file.active {
+    background: rgba(56, 110, 84, 0.18);
+    border-left-color: var(--lichen);
+    color: var(--ink);
+  }
+
+  .ide-side .file.active .ext { background: var(--lichen); }
+
+  .ide-code { padding: 14px 0 30px; overflow: hidden; }
+
+  .ide-code .code-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px 14px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 12px;
+  }
+
+  .ide-code .code-head .fname {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--ink-soft);
+    letter-spacing: 0.04em;
+  }
+
+  .btn-mini {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 6px;
+    background: var(--forest);
+    border: 1px solid var(--forest-border);
+    color: var(--ink);
+    white-space: nowrap;
+  }
+
+  .btn-mini.ghost {
+    background: transparent;
+    border-color: var(--line-strong);
+    color: var(--ink-soft);
+  }
+
+  pre.code {
+    margin: 0;
+    padding: 0 8px 0 0;
+    font-family: var(--font-mono);
+    font-size: 17px;
+    line-height: 1.85;
+    color: var(--ink-soft);
+    tab-size: 2;
+  }
+
+  pre.code .ln {
+    display: grid;
+    grid-template-columns: 42px minmax(0, 1fr);
+  }
+
+  pre.code .ln > span:first-child {
+    text-align: right;
+    padding-right: 18px;
+    color: #3d4842;
+    font-size: 13px;
+    user-select: none;
+  }
+
+  .k { color: var(--lichen); }
+  .fn { color: #a9cdb6; }
+  .s { color: var(--amber); }
+  .c { color: var(--muted-dim); font-style: italic; }
+  .o { color: var(--muted); }
+
+  /* ---------- dashboard ---------- */
+  .dash {
+    background: #12100f;
+    color: var(--ink);
+    padding: 22px 24px 20px;
+    font-family: var(--font-sans);
+  }
+
+  .dash-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .dash-head .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--moss);
+  }
+
+  .dash-head h4 {
+    margin-top: 6px;
+    font-family: var(--font-serif);
+    font-size: 26px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  .dash-head .readonly {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(109, 152, 123, 0.34);
+    background: rgba(33, 74, 54, 0.3);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+
+  .dash-head .readonly .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #52b777;
+    box-shadow: 0 0 0 3px rgba(82, 183, 119, 0.16);
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 18px;
+  }
+
+  .stat {
+    background: #191e1c;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+
+  .stat .label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .stat .value {
+    margin-top: 7px;
+    font-family: var(--font-serif);
+    font-size: 34px;
+    line-height: 1;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+  }
+
+  .stat .value.accent { color: var(--lichen); }
+  .stat .value.small { font-size: 22px; }
+  .stat .sub {
+    margin-top: 6px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .dash-body {
+    display: grid;
+    grid-template-columns: 340px minmax(0, 1fr);
+    gap: 14px;
+    margin-top: 14px;
+  }
+
+  .panel-box {
+    background: #191e1c;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+
+  .panel-box .panel-title {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  .bars { display: flex; flex-direction: column; gap: 10px; }
+  .bar-row .bar-top {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-bottom: 5px;
+  }
+  .bar-row .bar-top .n { font-family: var(--font-mono); color: var(--muted); font-size: 11px; }
+  .bar-track {
+    height: 7px;
+    border-radius: 999px;
+    background: rgba(237, 241, 238, 0.07);
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--forest-border), var(--moss));
+  }
+  .bar-fill.dim { background: linear-gradient(90deg, #2c4b3b, #4f7460); }
+
+  table.mini {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+  table.mini th {
+    text-align: left;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted-dim);
+    font-weight: 500;
+    padding: 0 8px 7px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  table.mini td {
+    padding: 7px 8px 7px 0;
+    border-bottom: 1px solid rgba(237, 241, 238, 0.05);
+    color: var(--ink-soft);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  table.mini td.num { text-align: right; font-family: var(--font-mono); font-size: 11px; color: var(--ink); padding-right: 0; }
+  table.mini td.tag { color: var(--lichen); font-size: 11px; }
+
+  /* ---------- prompt ---------- */
+  .prompt-card {
+    background: rgba(21, 25, 24, 0.92);
+    border: 1px solid var(--line-strong);
+    border-radius: 14px;
+    padding: 22px 24px;
+    box-shadow: 0 26px 50px -30px rgba(0, 0, 0, 0.9);
+  }
+
+  .prompt-card .prompt-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 16px;
+  }
+
+  .prompt-card .prompt-head .tag {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--moss);
+  }
+
+  .prompt-card .prompt-head .copy {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 4px 10px;
+  }
+
+  .prompt-text {
+    font-size: 22px;
+    line-height: 1.62;
+    color: var(--ink-soft);
+  }
+
+  .prompt-text p + p { margin-top: 14px; }
+  .prompt-text .q { color: var(--ink); }
+
+  .prompt-text .chip {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 15px;
+    padding: 2px 7px;
+    border-radius: 5px;
+    background: rgba(109, 152, 123, 0.16);
+    border: 1px solid rgba(109, 152, 123, 0.38);
+    color: var(--lichen);
+    line-height: 1.4;
+  }
+
+  .prompt-list { margin-top: 12px; display: flex; flex-direction: column; gap: 8px; }
+  .prompt-list li {
+    position: relative;
+    padding-left: 20px;
+    font-size: 21px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+  .prompt-list li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--moss);
+    font-family: var(--font-mono);
+  }
+
+  .file-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+  .file-chips .fc {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 14px;
+    border-radius: 9px;
+    background: rgba(237, 241, 238, 0.04);
+    border: 1px solid var(--line-strong);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--ink);
+  }
+  .file-chips .fc i {
+    width: 7px; height: 7px; border-radius: 2px; background: var(--lichen);
+  }
+  .file-chips .fc.html i { background: var(--amber); }
+
+  .reply {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 16px 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(109, 152, 123, 0.28);
+    background: rgba(33, 74, 54, 0.18);
+  }
+
+  .reply .rl {
+    flex: 0 0 auto;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--lichen);
+    white-space: nowrap;
+  }
+
+  .reply .rfiles { display: flex; gap: 10px; flex: 1 1 auto; min-width: 0; }
+
+  .reply .rf {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 14px;
+    border-radius: 9px;
+    border: 1px solid var(--line-strong);
+    background: rgba(237, 241, 238, 0.035);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .reply .rf .ok { margin-left: auto; color: var(--lichen); font-size: 12px; }
+
+  .reply .hint { font-size: 15px; color: var(--muted); white-space: nowrap; }
+
+  .anatomy {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .anatomy .pa {
+    padding: 15px 17px;
+    border-radius: 11px;
+    border: 1px solid var(--line);
+    background: rgba(21, 25, 24, 0.62);
+  }
+
+  .anatomy .pa b {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--moss);
+    font-weight: 500;
+    margin-bottom: 7px;
+  }
+
+  .anatomy .pa span {
+    display: block;
+    font-size: 16px;
+    line-height: 1.4;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- filas de archivos (slide 5) ---------- */
+  .file-rows { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 26px; }
+  .file-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px;
+    border-radius: 12px;
+    background: rgba(21, 25, 24, 0.7);
+    border: 1px solid var(--line);
+  }
+  .file-row .nm {
+    font-family: var(--font-mono);
+    font-size: 15px;
+    color: var(--lichen);
+    white-space: nowrap;
+  }
+  .file-row .nm.html { color: var(--amber); }
+  .file-row .ds { font-size: 15px; line-height: 1.35; color: var(--muted); }
+
+  /* ---------- modal de implementación ---------- */
+  .deploy-stage {
+    position: relative;
+    margin-top: 30px;
+    height: 560px;
+    border-radius: 14px;
+    border: 1px solid var(--line);
+    background:
+      radial-gradient(80% 70% at 50% 0%, rgba(56, 110, 84, 0.22), transparent 70%),
+      #101413;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+  }
+
+  .deploy-stage .ghost-lines {
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(0deg, rgba(237, 241, 238, 0.045) 0 1px, transparent 1px 46px);
+    opacity: 0.7;
+  }
+
+  .modal {
+    position: relative;
+    width: 630px;
+    background: #f7f9f7;
+    color: #1e2822;
+    border-radius: 14px;
+    padding: 26px 28px 24px;
+    box-shadow: 0 40px 70px -25px rgba(0, 0, 0, 0.8);
+  }
+
+  .modal .modal-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #e2e8e2;
+  }
+
+  .modal .modal-head h5 {
+    font-size: 21px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: #17211b;
+  }
+
+  .modal .modal-head .x { color: #93a198; font-size: 20px; line-height: 1; }
+
+  .field { margin-top: 18px; }
+  .field:first-of-type { margin-top: 20px; }
+
+  .field > label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: #5c6b61;
+    margin-bottom: 7px;
+  }
+
+  .control {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    height: 44px;
+    padding: 0 14px;
+    border: 1px solid #ccd8ce;
+    border-radius: 8px;
+    background: #ffffff;
+    font-size: 15px;
+    color: #223027;
+  }
+
+  .control.is-focus {
+    border-color: #1f7a4c;
+    box-shadow: 0 0 0 3px rgba(31, 122, 76, 0.14);
+    font-weight: 600;
+    color: #10462e;
+  }
+
+  .control .caret { color: #7d8b81; font-size: 11px; }
+
+  .modal .actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid #e8ede8;
+  }
+
+  .b {
+    height: 42px;
+    padding: 0 20px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .b.ghost { color: #4f6156; border: 1px solid transparent; }
+  .b.primary { background: #1f7a4c; color: #fff; box-shadow: 0 6px 16px -8px rgba(31, 122, 76, 0.9); }
+
+  .url-chip {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    border-radius: 11px;
+    border: 1px dashed rgba(109, 152, 123, 0.42);
+    background: rgba(33, 74, 54, 0.18);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--ink-soft);
+    overflow: hidden;
+  }
+
+  .url-chip .lock { color: var(--lichen); flex: 0 0 auto; }
+  .url-chip .u { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .url-chip .ok {
+    margin-left: auto;
+    flex: 0 0 auto;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--lichen);
+    border: 1px solid rgba(109, 152, 123, 0.4);
+    border-radius: 999px;
+    padding: 4px 10px;
+  }
+
+  /* ---------- slide 7 ---------- */
+  .iter-list { display: flex; flex-direction: column; gap: 13px; margin-top: 28px; }
+  .iter {
+    display: grid;
+    grid-template-columns: 34px minmax(0, 1fr);
+    gap: 16px;
+    padding: 19px 22px;
+    border-radius: 12px;
+    background: rgba(21, 25, 24, 0.78);
+    border: 1px solid var(--line);
+  }
+  .iter .n {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--lichen);
+    padding-top: 3px;
+    letter-spacing: 0.08em;
+  }
+  .iter strong { display: block; font-size: 20px; font-weight: 600; color: var(--ink); }
+  .iter span { display: block; margin-top: 3px; font-size: 17px; line-height: 1.45; color: var(--muted); }
+  .iter .fname-em {
+    font-style: normal;
+    font-family: var(--font-mono);
+    font-size: 15px;
+    color: var(--amber);
+  }
+
+  .bridge {
+    margin-top: 26px;
+    padding: 20px 22px;
+    border-radius: 13px;
+    background: linear-gradient(135deg, rgba(33, 74, 54, 0.42), rgba(21, 25, 24, 0.5));
+    border: 1px solid rgba(109, 152, 123, 0.34);
+  }
+
+  .bridge .tag {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--moss);
+  }
+
+  .bridge p {
+    margin-top: 8px;
+    font-size: 19px;
+    line-height: 1.48;
+    color: var(--ink-soft);
+  }
+
+  .bridge p b { color: var(--ink); font-weight: 600; }
+
+  .cta {
+    margin-top: 26px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+    font-family: var(--font-serif);
+    font-size: 29px;
+    line-height: 1.35;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+
+  .cta .accent { color: var(--lichen); font-style: italic; }
+
+  /* ---------- cierre: recap de los 6 pasos ---------- */
+  .recap {
+    margin-top: 26px;
+    padding: 20px 22px;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    background: rgba(21, 25, 24, 0.6);
+  }
+
+  .recap .rlabel {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--moss);
+  }
+
+  .recap .steps {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 14px;
+    flex-wrap: nowrap;
+  }
+
+  .recap .s {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 9px 10px;
+    border-radius: 8px;
+    background: rgba(237, 241, 238, 0.035);
+    border: 1px solid var(--line);
+    font-size: 12px;
+    line-height: 1.3;
+    color: var(--ink-soft);
+    text-align: center;
+  }
+
+  .recap .s b {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    color: var(--moss);
+    margin-bottom: 4px;
+  }
+
+  .recap .arrow {
+    color: var(--muted-dim);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    flex: 0 0 auto;
+  }
+
+  /* ---------- remate / idea clave ---------- */
+  .takeaway {
+    margin-top: auto;
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    padding: 19px 22px;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    background: rgba(21, 25, 24, 0.62);
+  }
+
+  .takeaway .tl {
+    flex: 0 0 auto;
+    padding-top: 3px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--moss);
+    white-space: nowrap;
+  }
+
+  .takeaway p {
+    font-size: 19px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+
+  .takeaway p b { color: var(--ink); font-weight: 600; }
+
+  .slide:has(.takeaway) .foot {
+    margin-top: 24px;
+  }
+
+  .slide--end .cta { margin-top: auto; }
+  .slide--end .foot { margin-top: 26px; }
+
+  .cover-caption {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .cover-caption .r { color: var(--moss); }
+
+  /* ---------- portada ---------- */
+  .cover-sub {
+    margin-top: 22px;
+    font-size: 23px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    max-width: 720px;
+  }
+
+  .cover-sub b { color: var(--ink); font-weight: 600; }
+
+  .cover-chips { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 24px; }
+
+  .cover-chips .c {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 7px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--line-strong);
+    color: var(--ink-soft);
+    background: rgba(237, 241, 238, 0.03);
+  }
+
+  .cover-chips .c.live {
+    border-color: rgba(109, 152, 123, 0.45);
+    background: rgba(33, 74, 54, 0.3);
+    color: var(--lichen);
+  }
+
+  .cover-stage { margin-top: auto; padding-top: 36px; }
+
+  /* ============================================================
+     Exportación a PDF: 1 slide = 1 página exacta (1080 × 1350 px)
+     ============================================================ */
+  @page {
+    size: 1080px 1350px;
+    margin: 0;
+  }
+
+  @media print {
+    html, body { background: #0f1211; }
+
+    .deck {
+      display: block;
+      padding: 0;
+      gap: 0;
+    }
+
+    .slide {
+      width: 1080px;
+      height: 1349px;
+      margin: 0;
+      border-radius: 0;
+      box-shadow: none;
+      break-inside: avoid;
+      break-after: page;
+      page-break-after: always;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .slide:last-child {
+      break-after: auto;
+      page-break-after: auto;
+    }
+
+    /* Chrome imprime mal las sombras grandes sobre gradientes: las quitamos */
+    .win,
+    .prompt-card,
+    .modal,
+    .shot {
+      box-shadow: none;
+    }
+  }
+
+  @media screen and (max-width: 1160px) {
+    .deck { padding: 24px 12px; }
+    .slide { transform: scale(calc((100vw - 32px) / 1080)); transform-origin: top center; margin-bottom: calc(-1350px * (1 - (100vw - 32px) / 1080) + 36px); }
+  }
+</style>
+</head>
+<body>
+<main class="deck">
+
+  <!-- ======================= 01 · PORTADA ======================= -->
+  <section class="slide" id="slide-1" aria-label="Portada">
+    <div class="top">
+      <span class="kicker">Serie · App del súper con Sheets + IA</span>
+      <span class="badge"><span class="dot"></span>Parte 2</span>
+    </div>
+
+    <h1 class="cover-title">De una hoja de cálculo a una web app en <span class="accent">5 minutos</span></h1>
+
+    <p class="cover-sub">Sin servidores. Sin costos. Solo Google Sheets, Apps Script e IA.<br><b>Paso a paso, replicable hoy.</b></p>
+
+    <div class="cover-chips">
+      <span class="c live">Google Sheets</span>
+      <span class="c">Apps Script</span>
+      <span class="c">Gemini / Claude</span>
+    </div>
+
+    <div class="cover-stage">
+      <figure class="shot shot--cover">
+        <img src="screenshots/05-dashboard-funcionando.png" alt="Dashboard de compras funcionando: total gastado, cantidad de compras, comercio con más gasto, barras por categoría y tabla de detalle.">
+      </figure>
+      <div class="cover-caption">
+        <span>El resultado: tu dashboard, sobre tu hoja</span>
+        <span class="r">6 pasos · 0 costo</span>
+      </div>
+    </div>
+
+    <footer class="foot">
+      <span class="who"><b>Luis Izquierdo</b><span class="sep">·</span>Senior Software Engineer</span>
+      <span class="page">01/07</span>
+    </footer>
+  </section>
+
+  <!-- ======================= 02 · LA HOJA ======================= -->
+  <section class="slide" id="slide-2" aria-label="Paso 1: crea tu hoja en Google Sheets">
+    <div class="top">
+      <span class="kicker">Paso 1 de 6</span>
+      <span class="badge"><span class="dot"></span>0 servidores</span>
+    </div>
+
+    <h1 class="title">Crea tu hoja en <span class="accent">Google Sheets</span></h1>
+
+    <p class="lead">No necesitas base de datos. Tu hoja <strong>es</strong> la base de datos: una pestaña llamada <strong>Compras</strong> y cinco columnas bastan para arrancar.</p>
+
+    <p class="note"><span class="tick">→</span><span>¿Sin datos todavía? Pídele a Gemini una tabla de ejemplo con 15 filas y estas columnas: Fecha, Producto, Categoría, Comercio, Monto.</span></p>
+
+    <div class="stage">
+      <figure class="shot shot--sheet">
+        <img src="screenshots/01-google-sheet.png" alt="Google Sheets con la pestaña Compras y 15 filas de datos de prueba: fecha, producto, categoría, comercio y monto.">
+      </figure>
+    </div>
+
+    <div class="takeaway">
+      <span class="tl">En una frase</span>
+      <p>Tu hoja <b>es</b> la base de datos: editas una fila y la app ya muestra el cambio. <b>Cero migraciones, cero backend.</b></p>
+    </div>
+
+    <footer class="foot">
+      <span class="who"><b>Luis Izquierdo</b><span class="sep">·</span>Senior Software Engineer</span>
+      <span class="page">02/07</span>
+    </footer>
+  </section>
+
+  <!-- ======================= 03 · APPS SCRIPT ======================= -->
+  <section class="slide" id="slide-3" aria-label="Paso 2: abre Apps Script">
+    <div class="top">
+      <span class="kicker">Paso 2 de 6</span>
+      <span class="badge"><span class="dot"></span>Ya viene integrado</span>
+    </div>
+
+    <h1 class="title">Abre Apps Script<br>desde <span class="accent">la misma hoja</span></h1>
+
+    <p class="lead">En el menú superior: <strong>Extensiones → Apps Script</strong>. No hay que instalar nada, crear cuentas nuevas ni configurar un servidor.</p>
+
+    <div class="stage">
+      <figure class="shot shot--menu">
+        <img src="screenshots/02-extensiones-apps-script.png" alt="Menú Extensiones de Google Sheets abierto, con la opción Apps Script resaltada.">
+      </figure>
+    </div>
+
+    <div class="takeaway">
+      <span class="tl">Por qué importa</span>
+      <p>El editor vive <b>dentro del proyecto de la hoja</b>: mismos permisos, misma cuenta de Google. <b>No hay nada que instalar.</b></p>
+    </div>
+
+    <footer class="foot">
+      <span class="who"><b>Luis Izquierdo</b><span class="sep">·</span>Senior Software Engineer</span>
+      <span class="page">03/07</span>
+    </footer>
+  </section>
+
+  <!-- ======================= 04 · PROMPT ======================= -->
+  <section class="slide" id="slide-4" aria-label="Paso 3: pídele el código a la IA">
+    <div class="top">
+      <span class="kicker">Paso 3 de 6</span>
+      <span class="badge"><span class="dot"></span>Gemini · Claude</span>
+    </div>
+
+    <h1 class="title">Pídele el código <span class="accent">a la IA</span></h1>
+
+    <p class="lead">Dale el nombre exacto de tu pestaña, tus columnas y qué quieres ver. Cuanto más concreto el pedido, menos vueltas después.</p>
+
+    <div class="stage">
+      <div class="prompt-card">
+        <div class="prompt-head">
+          <span class="tag">Prompt · web app de solo lectura</span>
+          <span class="copy">copiar y pegar</span>
+        </div>
+
+        <div class="prompt-text">
+          <p class="q">Tengo un Google Sheet con una pestaña <span class="chip">Compras</span> y estas columnas: <span class="chip">Fecha</span> <span class="chip">Producto</span> <span class="chip">Categoría</span> <span class="chip">Comercio</span> <span class="chip">Monto</span>.</p>
+          <p class="q">Quiero una web app de solo lectura, mobile-first, con:</p>
+          <ul class="prompt-list">
+            <li>3 tarjetas: total gastado, cantidad de compras y comercio top.</li>
+            <li>Barras de gasto por categoría y tabla con el detalle.</li>
+            <li>Sin login ni dependencias externas.</li>
+          </ul>
+          <p class="q">Devuélveme dos archivos completos, listos para pegar: <span class="chip">Code.gs</span> e <span class="chip">index.html</span>.</p>
+        </div>
+
+        <div class="file-chips">
+          <span class="fc"><i></i>Code.gs</span>
+          <span class="fc html"><i></i>index.html</span>
+        </div>
+      </div>
+
+      <div class="reply">
+        <span class="rl">La IA responde</span>
+        <div class="rfiles">
+          <span class="rf">Code.gs <span class="ok">✓ listo</span></span>
+          <span class="rf">index.html <span class="ok">✓ listo</span></span>
+        </div>
+        <span class="hint">copiar y pegar</span>
+      </div>
+
+      <div class="anatomy">
+        <div class="pa">
+          <b>Contexto</b>
+          <span>Un Sheet real, con la pestaña y los datos que ya tienes.</span>
+        </div>
+        <div class="pa">
+          <b>Columnas</b>
+          <span>Los nombres exactos de la fila 1, tal como están escritos.</span>
+        </div>
+        <div class="pa">
+          <b>Salida</b>
+          <span>Dos archivos completos y cómo desplegarlos.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="takeaway">
+      <span class="tl">Regla práctica</span>
+      <p>El prompt es el nuevo brief técnico: <b>pestaña, columnas y salida esperada</b>. Si eso está claro, el código sale casi listo.</p>
+    </div>
+
+    <footer class="foot">
+      <span class="who"><b>Luis Izquierdo</b><span class="sep">·</span>Senior Software Engineer</span>
+      <span class="page">04/07</span>
+    </footer>
+  </section>
+
+  <!-- ======================= 05 · PEGAR ======================= -->
+  <section class="slide" id="slide-5" aria-label="Paso 4: pega los dos archivos">
+    <div class="top">
+      <span class="kicker">Paso 4 de 6</span>
+      <span class="badge"><span class="dot"></span>2 archivos</span>
+    </div>
+
+    <h1 class="title">Pega los dos archivos <span class="accent">y guarda</span></h1>
+
+    <div class="file-rows">
+      <div class="file-row">
+        <span class="nm">Code.gs</span>
+        <span class="ds">Lee la pestaña y sirve la web.</span>
+      </div>
+      <div class="file-row">
+        <span class="nm html">index.html</span>
+        <span class="ds">La interfaz del dashboard.</span>
+      </div>
+    </div>
+
+    <div class="stage">
+      <figure class="shot shot--ide">
+        <img src="screenshots/03-apps-script-editor.png" alt="Editor de Apps Script con Code.gs e index.html en el panel de archivos y el código de doGet y getCompras.">
+      </figure>
+    </div>
+
+    <div class="takeaway">
+      <span class="tl">Dos responsabilidades</span>
+      <p><b>Code.gs</b> habla con la hoja y sirve la página; <b>index.html</b> pinta la interfaz. Nada más que eso.</p>
+    </div>
+
+    <footer class="foot">
+      <span class="who"><b>Luis Izquierdo</b><span class="sep">·</span>Senior Software Engineer</span>
+      <span class="page">05/07</span>
+    </footer>
+  </section>
+
+  <!-- ======================= 06 · DEPLOY ======================= -->
+  <section class="slide" id="slide-6" aria-label="Paso 5: publica tu aplicación web">
+    <div class="top">
+      <span class="kicker">Paso 5 de 6</span>
+      <span class="badge"><span class="dot"></span>Link público</span>
+    </div>
+
+    <h1 class="title">Publica tu app en <span class="accent">3 clics</span></h1>
+
+    <p class="lead"><strong>Implementar → Nueva implementación → Aplicación web</strong>. Aceptas los permisos y ya tienes un link propio para abrir desde el navegador o el teléfono.</p>
+
+    <div class="deploy-stage">
+      <div class="ghost-lines"></div>
+      <figure class="shot shot--deploy">
+        <img src="screenshots/04-nueva-implementacion-modal.png" alt="Diálogo Nueva implementación de Apps Script: tipo Aplicación web, ejecutar como Yo y acceso para cualquier usuario.">
+      </figure>
+    </div>
+
+    <div class="url-chip">
+      <span class="lock">●</span>
+      <span class="u">https://script.google.com/macros/s/AKfy…/exec</span>
+      <span class="ok">Listo para el celular</span>
+    </div>
+
+    <div class="takeaway">
+      <span class="tl">El resultado</span>
+      <p>Ese link <b>es la app</b>: se abre en cualquier navegador, se comparte como una URL normal y <b>no hay hosting que pagar</b>.</p>
+    </div>
+
+    <footer class="foot">
+      <span class="who"><b>Luis Izquierdo</b><span class="sep">·</span>Senior Software Engineer</span>
+      <span class="page">06/07</span>
+    </footer>
+  </section>
+
+  <!-- ======================= 07 · ITERAR + CIERRE ======================= -->
+  <section class="slide slide--end" id="slide-7" aria-label="Paso 6: itera conversando con la IA y cierre">
+    <div class="top">
+      <span class="kicker">Paso 6 de 6</span>
+      <span class="badge"><span class="dot"></span>Parte 3 próximamente</span>
+    </div>
+
+    <h1 class="title">Itera conversando <span class="accent">con la IA</span></h1>
+
+    <p class="lead">La app no queda congelada: pides el cambio, pegas el archivo y vuelves a implementar. La hoja sigue siendo la base de datos.</p>
+
+    <div class="iter-list">
+      <div class="iter">
+        <span class="n">01</span>
+        <div>
+          <strong>Filtros por categoría y comercio</strong>
+          <span>Lo pides, actualizas <em class="fname-em">index.html</em> y redespliegas.</span>
+        </div>
+      </div>
+      <div class="iter">
+        <span class="n">02</span>
+        <div>
+          <strong>Un gráfico nuevo o un buscador</strong>
+          <span>Mismo flujo: prompt, pegar, publicar. Sin tocar la hoja.</span>
+        </div>
+      </div>
+      <div class="iter">
+        <span class="n">03</span>
+        <div>
+          <strong>Formulario para cargar gastos</strong>
+          <span>Pasa de solo lectura a escritura cuando lo necesites.</span>
+        </div>
+      </div>
+      <div class="iter">
+        <span class="n">04</span>
+        <div>
+          <strong>Compartir el link</strong>
+          <span>Quien tenga el enlace lo abre desde el celular, sin instalar nada.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bridge">
+      <span class="tag">Parte 3 · lo que viene</span>
+      <p>Cuando copiar y pegar ya no alcanza: <b>archivos modulares, tests (TDD) y un agente de código</b> con reglas claras. El mismo Sheet, otro nivel de ingeniería.</p>
+    </div>
+
+    <div class="recap">
+      <span class="rlabel">Todo el flujo, en 6 pasos</span>
+      <div class="steps">
+        <span class="s"><b>01</b>Hoja + datos</span>
+        <span class="arrow">›</span>
+        <span class="s"><b>02</b>Extensiones</span>
+        <span class="arrow">›</span>
+        <span class="s"><b>03</b>Prompt a la IA</span>
+        <span class="arrow">›</span>
+        <span class="s"><b>04</b>Pegar y guardar</span>
+        <span class="arrow">›</span>
+        <span class="s"><b>05</b>Implementar</span>
+        <span class="arrow">›</span>
+        <span class="s"><b>06</b>Iterar</span>
+      </div>
+    </div>
+
+    <p class="cta">¿Qué herramienta sencilla montarías primero <span class="accent">sobre un Google Sheet?</span></p>
+
+    <footer class="foot">
+      <span class="who"><b>Luis Izquierdo</b><span class="sep">·</span>Senior Software Engineer</span>
+      <span class="page">07/07</span>
+    </footer>
+  </section>
+
+</main>
+</body>
+</html>

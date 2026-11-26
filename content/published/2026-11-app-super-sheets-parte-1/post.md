@@ -13,7 +13,7 @@ tags:
   - Gemini
   - LowCode
   - Productividad
-link: "https://www.linkedin.com/in/luis-enrique-izquierdo-pe%C3%B1a/"
+link: "https://lnkd.in/p/exBTdGHj"
 ---
 
 La lista del mercado por WhatsApp no me alcanzaba, así que me armé una app con Google Sheets e IA, sin pagar un dólar.

@@ -1,0 +1,74 @@
+[
+  {
+    "text": "En",
+    "start": 0.09,
+    "end": 0.12,
+    "id": "w0"
+  },
+  {
+    "text": "la",
+    "start": 0.12,
+    "end": 0.24,
+    "id": "w1"
+  },
+  {
+    "text": "parte",
+    "start": 0.24,
+    "end": 0.53,
+    "id": "w2"
+  },
+  {
+    "text": "3",
+    "start": 0.58,
+    "end": 0.71,
+    "id": "w3"
+  },
+  {
+    "text": "lo",
+    "start": 0.75,
+    "end": 0.76,
+    "id": "w4"
+  },
+  {
+    "text": "llevamos",
+    "start": 0.85,
+    "end": 1.32,
+    "id": "w5"
+  },
+  {
+    "text": "a",
+    "start": 1.32,
+    "end": 1.37,
+    "id": "w6"
+  },
+  {
+    "text": "código",
+    "start": 1.49,
+    "end": 1.74,
+    "id": "w7"
+  },
+  {
+    "text": "modular,",
+    "start": 1.74,
+    "end": 2.23,
+    "id": "w8"
+  },
+  {
+    "text": "TDD",
+    "start": 2.4,
+    "end": 2.6,
+    "id": "w9"
+  },
+  {
+    "text": "y",
+    "start": 2.6,
+    "end": 2.69,
+    "id": "w10"
+  },
+  {
+    "text": "agentes.",
+    "start": 2.69,
+    "end": 3.65,
+    "id": "w11"
+  }
+]

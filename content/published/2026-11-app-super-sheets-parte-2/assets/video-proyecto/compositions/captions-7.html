@@ -1,0 +1,62 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: "Inter", sans-serif;
+    }
+    .cap-wrap {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 26px;
+      display: flex;
+      justify-content: center;
+      text-align: center;
+    }
+    .cap-text {
+      display: inline-block;
+      max-width: 1280px;
+      padding: 14px 32px;
+      border-radius: 16px;
+      background: rgba(9, 12, 11, 0.87);
+      border: 1px solid rgba(237, 241, 238, 0.13);
+      box-shadow: 0 18px 46px rgba(0, 0, 0, 0.45);
+      font-size: 34px;
+      font-weight: 500;
+      line-height: 1.3;
+      color: #edf1ee;
+      text-wrap: balance;
+    }
+    .hi {
+      color: #a8cfb5;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+  </style>
+
+  <div id="root" data-composition-id="captions-7" data-width="1920" data-height="914">
+    <div id="c7-a-clip" class="clip cap-wrap" data-start="0.15" data-duration="2.4" data-layout-allow-occlusion data-layout-allow-caption-zone>
+      <div id="c7-a" class="cap-text">
+        Recargas y el total <span class="hi">se actualiza al instante</span>.
+      </div>
+    </div>
+
+    <div id="c7-b-clip" class="clip cap-wrap" data-start="3.15" data-duration="5.95" data-layout-allow-occlusion data-layout-allow-caption-zone>
+      <div id="c7-b" class="cap-text">
+        Filtra y todo se recalcula solo. En la <span class="hi">Parte 3</span>: código modular, TDD y agentes.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#c7-a", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.26, ease: "power2.out" }, 0.15);
+    tl.to("#c7-a", { opacity: 0, duration: 0.2, ease: "power2.in" }, 2.3);
+
+    tl.fromTo("#c7-b", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.26, ease: "power2.out" }, 3.15);
+    tl.to("#c7-b", { opacity: 0, duration: 0.22, ease: "power2.in" }, 8.95);
+
+    window.__timelines["captions-7"] = tl;
+  </script>
+</template>

@@ -1,0 +1,71 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: "Inter", sans-serif;
+    }
+    .step-pill-wrap {
+      position: absolute;
+      left: 26px;
+      top: 14px;
+    }
+    .step-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      padding: 11px 26px 11px 14px;
+      border-radius: 999px;
+      background: rgba(10, 14, 12, 0.87);
+      border: 1px solid rgba(109, 152, 123, 0.62);
+      box-shadow:
+        0 18px 44px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(8px);
+    }
+    .step-tag {
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: #214a36;
+      color: #eef3ef;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .step-title {
+      font-size: 26px;
+      font-weight: 600;
+      line-height: 1.25;
+      color: #edf1ee;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+    }
+  </style>
+
+  <div id="root" data-composition-id="step-0-hook" data-width="1920" data-height="914">
+    <div id="s0-pill-clip" class="clip step-pill-wrap" data-start="0.15" data-duration="7.4" data-layout-allow-occlusion>
+      <div id="s0-pill" class="step-pill">
+        <span class="step-tag">Resultado</span>
+        <span class="step-title">Web app sobre Google Sheets · costo $0</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#s0-pill",
+      { opacity: 0, y: -14 },
+      { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" },
+      0.15
+    );
+    tl.to("#s0-pill",
+      { opacity: 0, y: -10, duration: 0.28, ease: "power2.in" },
+      7.15
+    );
+    window.__timelines["step-0-hook"] = tl;
+  </script>
+</template>

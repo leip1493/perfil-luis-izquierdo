@@ -1,0 +1,154 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: "Inter", sans-serif;
+    }
+    .step-pill-wrap {
+      position: absolute;
+      left: 26px;
+      top: 14px;
+    }
+    .step-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      padding: 11px 26px 11px 14px;
+      border-radius: 999px;
+      background: rgba(10, 14, 12, 0.87);
+      border: 1px solid rgba(109, 152, 123, 0.62);
+      box-shadow:
+        0 18px 44px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(8px);
+    }
+    .step-tag {
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: #214a36;
+      color: #eef3ef;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .step-title {
+      font-size: 26px;
+      font-weight: 600;
+      line-height: 1.25;
+      color: #edf1ee;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+    }
+    .lupa-card {
+      border-radius: 20px;
+      overflow: hidden;
+      background: #101413;
+      border: 2px solid rgba(109, 152, 123, 0.92);
+      box-shadow:
+        0 30px 74px rgba(0, 0, 0, 0.62),
+        0 0 0 1px rgba(0, 0, 0, 0.45);
+    }
+    .lupa-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 18px;
+      background: rgba(13, 17, 15, 0.99);
+      border-bottom: 1px solid rgba(109, 152, 123, 0.35);
+    }
+    .lupa-dot {
+      flex: 0 0 auto;
+      width: 11px;
+      height: 11px;
+      border-radius: 999px;
+      background: #8db89a;
+      box-shadow: 0 0 14px rgba(141, 184, 154, 0.9);
+    }
+    .lupa-badge {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #8db89a;
+      white-space: nowrap;
+    }
+    .lupa-action {
+      margin-left: auto;
+      font-size: 26px;
+      font-weight: 600;
+      color: #edf1ee;
+      white-space: nowrap;
+    }
+    .lupa-img {
+      display: block;
+      width: 100%;
+      height: auto;
+      background: #ffffff;
+    }
+    /* Lupa 1: celda editada en la hoja */
+    .lupa-e2-wrap {
+      position: absolute;
+      left: 1040px;
+      top: 186px;
+      width: 740px;
+    }
+    /* Lupa 2: total del dashboard */
+    .lupa-79-wrap {
+      position: absolute;
+      left: 1120px;
+      top: 296px;
+      width: 700px;
+    }
+  </style>
+
+  <div id="root" data-composition-id="step-5b-edit" data-width="1920" data-height="914">
+    <div id="s5b-pill-clip" class="clip step-pill-wrap" data-start="0.05" data-duration="12.25" data-layout-allow-occlusion>
+      <div id="s5b-pill" class="step-pill">
+        <span class="step-tag">Paso 5</span>
+        <span class="step-title">Editas en Sheets y se refleja al instante</span>
+      </div>
+    </div>
+
+    <div id="s5b-lupa-e2-clip" class="clip lupa-e2-wrap" data-start="0.4" data-duration="3.5" data-layout-allow-occlusion>
+      <div id="s5b-lupa-e2" class="lupa-card">
+        <div class="lupa-header">
+          <span class="lupa-dot"></span>
+          <span class="lupa-badge">Zoom · edición</span>
+          <span class="lupa-action">1,85 → 24,5</span>
+        </div>
+        <img class="lupa-img" src="assets/lupa-celda-e2.png" alt="Celda editada con 24,5" />
+      </div>
+    </div>
+
+    <div id="s5b-lupa-79-clip" class="clip lupa-79-wrap" data-start="4.45" data-duration="3.5" data-layout-allow-occlusion>
+      <div id="s5b-lupa-79" class="lupa-card">
+        <div class="lupa-header">
+          <span class="lupa-dot"></span>
+          <span class="lupa-badge">Zoom · resultado</span>
+          <span class="lupa-action">57,15 → 79,80</span>
+        </div>
+        <img class="lupa-img" src="assets/lupa-total-79.png" alt="Total actualizado a 79,80" />
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#s5b-pill", { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: 0.36, ease: "power3.out" }, 0.05);
+    tl.to("#s5b-pill", { opacity: 0, y: -10, duration: 0.26, ease: "power2.in" }, 12.05);
+
+    tl.fromTo("#s5b-lupa-e2", { opacity: 0, scale: 0.9, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.38, ease: "back.out(1.3)" }, 0.4);
+    tl.to("#s5b-lupa-e2", { opacity: 0, scale: 0.95, y: 8, duration: 0.26, ease: "power2.in" }, 3.62);
+
+    tl.fromTo("#s5b-lupa-79", { opacity: 0, scale: 0.9, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.38, ease: "back.out(1.3)" }, 4.45);
+    tl.to("#s5b-lupa-79", { opacity: 0, scale: 0.95, y: 8, duration: 0.26, ease: "power2.in" }, 7.67);
+
+    window.__timelines["step-5b-edit"] = tl;
+  </script>
+</template>

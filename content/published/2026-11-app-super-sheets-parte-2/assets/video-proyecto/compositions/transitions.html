@@ -1,0 +1,71 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: "Inter", sans-serif;
+    }
+    .tr-layer {
+      position: absolute;
+      inset: 0;
+    }
+    .tr-veil {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      background: rgba(7, 10, 9, 0.55);
+    }
+    .tr-open {
+      position: absolute;
+      inset: 0;
+      background: #070a08;
+    }
+    .tr-line {
+      position: absolute;
+      top: -6%;
+      left: -30px;
+      width: 3px;
+      height: 112%;
+      opacity: 0;
+      transform: translateX(0);
+      background: linear-gradient(
+        180deg,
+        rgba(200, 226, 209, 0) 0%,
+        #9ed4b0 24%,
+        #f2fbf5 50%,
+        #9ed4b0 76%,
+        rgba(200, 226, 209, 0) 100%
+      );
+      box-shadow: 0 0 16px 1px rgba(141, 184, 154, 0.45);
+    }
+  </style>
+
+  <div id="root" data-composition-id="transitions" data-width="1920" data-height="914">
+    <div id="tr-clip" class="clip tr-layer" data-start="0" data-duration="71.8" data-layout-ignore>
+      <div id="tr-open" class="tr-open"></div>
+      <div id="tr-veil" class="tr-veil"></div>
+      <div id="tr-line" class="tr-line"></div>
+    </div>
+  </div>
+
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    // El cuerpo emerge del negro que dejó la intro.
+    tl.fromTo("#tr-open", { opacity: 0.92 }, { opacity: 0, duration: 0.5, ease: "power2.out" }, 0);
+
+    // Micro-transición en cada cambio de paso: velo corto + línea de acento cruzando.
+    const CUTS = [7.62, 13.32, 19.05, 30.52, 56.22, 59.22, 63.62];
+
+    CUTS.forEach((t) => {
+      tl.fromTo("#tr-veil", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power2.out" }, t);
+      tl.to("#tr-veil", { opacity: 0, duration: 0.24, ease: "power2.in" }, t + 0.12);
+
+      tl.set("#tr-line", { x: 0, opacity: 0 }, t);
+      tl.to("#tr-line", { opacity: 1, duration: 0.08, ease: "power1.out" }, t);
+      tl.to("#tr-line", { x: 1980, duration: 0.4, ease: "power2.inOut" }, t);
+      tl.to("#tr-line", { opacity: 0, duration: 0.12, ease: "power1.in" }, t + 0.3);
+    });
+
+    window.__timelines["transitions"] = tl;
+  </script>
+</template>

@@ -1,0 +1,5 @@
+# Cachés locales de HyperFrames (se regeneran solas)
+.hyperframes/
+.thumbnails/
+.transcode-cache/
+.waveform-cache/

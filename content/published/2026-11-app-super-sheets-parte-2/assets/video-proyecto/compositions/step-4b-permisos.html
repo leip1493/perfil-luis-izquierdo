@@ -1,0 +1,103 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: "Inter", sans-serif;
+    }
+    .step-pill-wrap {
+      position: absolute;
+      left: 26px;
+      top: 14px;
+    }
+    .step-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      padding: 11px 26px 11px 14px;
+      border-radius: 999px;
+      background: rgba(10, 14, 12, 0.87);
+      border: 1px solid rgba(109, 152, 123, 0.62);
+      box-shadow:
+        0 18px 44px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(8px);
+    }
+    .step-tag {
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: #214a36;
+      color: #eef3ef;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .step-title {
+      font-size: 26px;
+      font-weight: 600;
+      line-height: 1.25;
+      color: #edf1ee;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+    }
+    /* Nota de permisos de Google */
+    .tip-wrap {
+      position: absolute;
+      left: 1442px;
+      top: 236px;
+      width: 458px;
+    }
+    .tip-card {
+      padding: 20px 22px 22px;
+      border-radius: 18px;
+      background: rgba(12, 16, 14, 0.95);
+      border: 2px solid rgba(216, 179, 116, 0.72);
+      box-shadow: 0 26px 64px rgba(0, 0, 0, 0.6);
+    }
+    .tip-kicker {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #d8b374;
+      margin-bottom: 10px;
+    }
+    .tip-text {
+      font-size: 27px;
+      line-height: 1.42;
+      color: #edf1ee;
+    }
+  </style>
+
+  <div id="root" data-composition-id="step-4b-permisos" data-width="1920" data-height="914">
+    <div id="s4b-pill-clip" class="clip step-pill-wrap" data-start="0.1" data-duration="11.0" data-layout-allow-occlusion>
+      <div id="s4b-pill" class="step-pill">
+        <span class="step-tag">Paso 4</span>
+        <span class="step-title">Autoriza una vez y copia la URL</span>
+      </div>
+    </div>
+
+    <div id="s4b-tip-clip" class="clip tip-wrap" data-start="0.15" data-duration="3.5" data-layout-allow-occlusion>
+      <div id="s4b-tip" class="tip-card">
+        <div class="tip-kicker">Nota · permisos de Google</div>
+        <div class="tip-text">La primera vez, Google pide autorizar el acceso. Solo aceptas.</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#s4b-pill", { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: 0.36, ease: "power3.out" }, 0.1);
+    tl.to("#s4b-pill", { opacity: 0, y: -10, duration: 0.26, ease: "power2.in" }, 10.8);
+
+    tl.fromTo("#s4b-tip", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.15);
+    tl.to("#s4b-tip", { opacity: 0, y: 10, duration: 0.28, ease: "power2.in" }, 3.35);
+
+    window.__timelines["step-4b-permisos"] = tl;
+  </script>
+</template>

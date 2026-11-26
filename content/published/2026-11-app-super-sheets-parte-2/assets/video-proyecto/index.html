@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html
+  lang="es"
+  data-composition-variables='[
+    {"id":"seriesTag","type":"string","label":"Etiqueta de serie","default":"Google Sheets + IA · Parte 2"},
+    {"id":"brandColor","type":"color","label":"Color acento","default":"#6d987b"},
+    {"id":"tipColor","type":"color","label":"Color tip","default":"#d8b374"}
+  ]'
+>
+<head>
+  <meta charset="UTF-8" />
+  <title>App del súper con Google Sheets + IA — Parte 2 (video a pantalla completa)</title>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1920px;
+      height: 914px;
+      overflow: hidden;
+      background: #0d100f;
+      font-family: "Inter", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    #root {
+      position: relative;
+      width: 1920px;
+      height: 914px;
+      overflow: hidden;
+      background: #0d100f;
+    }
+    /* El video llena el lienzo completo: 1920 x 914 es la proporción real del material (1504 x 716). */
+    #screen-video {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1920px;
+      height: 914px;
+      z-index: 1;
+      object-fit: cover;
+      background: #ffffff;
+    }
+    .scene-host {
+      position: absolute;
+      inset: 0;
+      z-index: 25;
+      pointer-events: none;
+    }
+    .caption-host {
+      position: absolute;
+      inset: 0;
+      z-index: 30;
+      pointer-events: none;
+    }
+    .transition-host {
+      position: absolute;
+      inset: 0;
+      z-index: 28;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="root" data-composition-id="main" data-start="0" data-duration="96.8" data-width="1920" data-height="914">
+
+    <!-- Intro editorial (voz propia + tarjeta) -->
+    <div id="intro" class="scene-host" data-composition-id="intro" data-composition-src="compositions/intro.html" data-start="0" data-duration="14.2" data-track-index="2" data-track-kind="graphics" data-width="1920" data-height="914"></div>
+
+    <div id="intro-captions" class="caption-host" data-composition-id="intro-captions" data-composition-src="compositions/intro-captions.html" data-start="0" data-duration="14.2" data-track-index="3" data-track-kind="captions" data-width="1920" data-height="914"></div>
+
+    <video
+      id="screen-video"
+      class="clip"
+      src="assets/base.mp4"
+      data-start="14.2"
+      data-duration="71.8"
+      data-track-index="1"
+      muted
+      playsinline
+    ></video>
+
+
+    <audio id="vo-intro" class="clip" src="assets/vo-intro-norm.wav" data-start="0.2" data-duration="13.63" data-track-index="5" data-volume="1" preload="auto"></audio>
+
+    <!-- Voz en off: clips cortados de assets/voiceover.wav (ver scripts/build-voiceover.py) -->
+
+    <audio id="vo-01" class="clip" src="assets/vo-01.wav" data-start="14.28" data-duration="6.99" data-track-index="5" data-volume="1" preload="auto"></audio>
+    <audio id="vo-02" class="clip" src="assets/vo-02.wav" data-start="22.08" data-duration="5" data-track-index="5" data-volume="1" preload="auto"></audio>
+    <audio id="vo-03" class="clip" src="assets/vo-03.wav" data-start="27.64" data-duration="4.79" data-track-index="5" data-volume="1" preload="auto"></audio>
+    <audio id="vo-04" class="clip" src="assets/vo-04.wav" data-start="33.44" data-duration="4.28" data-track-index="5" data-volume="1" preload="auto"></audio>
+    <audio id="vo-05" class="clip" src="assets/vo-05.wav" data-start="38.56" data-duration="4.39" data-track-index="5" data-volume="1" preload="auto"></audio>
+    <audio id="vo-06" class="clip" src="assets/vo-06.wav" data-start="44.54" data-duration="2.86" data-track-index="5" data-volume="1" preload="auto"></audio>
+    <audio id="vo-07" class="clip" src="assets/vo-07.wav" data-start="47.54" data-duration="2.7" data-track-index="5" data-volume="1" preload="auto"></audio>
+    <audio id="vo-08" class="clip" src="assets/vo-08.wav" data-start="51.54" data-duration="2.78" data-track-index="5" data-volume="1" preload="auto"></audio>
+    <audio id="vo-09" class="clip" src="assets/vo-09.wav" data-start="58.68" data-duration="3.7" data-track-index="5" data-volume="1" preload="auto"></audio>
+    <audio id="vo-10" class="clip" src="assets/vo-10.wav" data-start="62.9" data-duration="4.46" data-track-index="5" data-volume="1" preload="auto"></audio>
+    <audio id="vo-11" class="clip" src="assets/vo-11.wav" data-start="70.7" data-duration="1.5" data-track-index="5" data-volume="1" preload="auto"></audio>
+    <audio id="vo-12" class="clip" src="assets/vo-12.wav" data-start="73.62" data-duration="2.46" data-track-index="5" data-volume="1" preload="auto"></audio>
+    <audio id="vo-13" class="clip" src="assets/vo-13.wav" data-start="77.05" data-duration="2.4" data-track-index="5" data-volume="1" preload="auto"></audio>
+    <audio id="vo-14" class="clip" src="assets/vo-14.wav" data-start="80.2" data-duration="1.74" data-track-index="5" data-volume="1" preload="auto"></audio>
+    <audio id="vo-15" class="clip" src="assets/vo-15.wav" data-start="82.02" data-duration="3.72" data-track-index="5" data-volume="1" preload="auto"></audio>
+    <audio id="vo-outro" class="clip" src="assets/vo-outro-norm.wav" data-start="86.25" data-duration="9.96" data-track-index="5" data-volume="1" preload="auto"></audio>
+
+
+    <!-- Escenas: indicadores de paso + lupas + nota de permisos -->
+    <div id="step-0-hook" class="scene-host" data-composition-id="step-0-hook" data-composition-src="compositions/step-0-hook.html" data-start="14.2" data-duration="7.8" data-track-index="2" data-track-kind="graphics" data-width="1920" data-height="914"></div>
+
+    <div id="step-1-sheet" class="scene-host" data-composition-id="step-1-sheet" data-composition-src="compositions/step-1-sheet.html" data-start="22" data-duration="5.7" data-track-index="2" data-track-kind="graphics" data-width="1920" data-height="914"></div>
+
+    <div id="step-2-apps-script" class="scene-host" data-composition-id="step-2-apps-script" data-composition-src="compositions/step-2-apps-script.html" data-start="27.7" data-duration="5.733" data-track-index="2" data-track-kind="graphics" data-width="1920" data-height="914"></div>
+
+    <div id="step-3-code" class="scene-host" data-composition-id="step-3-code" data-composition-src="compositions/step-3-code.html" data-start="33.433" data-duration="11.467" data-track-index="2" data-track-kind="graphics" data-width="1920" data-height="914"></div>
+
+    <div id="step-4a-deploy" class="scene-host" data-composition-id="step-4a-deploy" data-composition-src="compositions/step-4a-deploy.html" data-start="44.9" data-duration="14.6" data-track-index="2" data-track-kind="graphics" data-width="1920" data-height="914"></div>
+
+    <div id="step-4b-permisos" class="scene-host" data-composition-id="step-4b-permisos" data-composition-src="compositions/step-4b-permisos.html" data-start="59.5" data-duration="11.1" data-track-index="2" data-track-kind="graphics" data-width="1920" data-height="914"></div>
+
+    <div id="step-5a-live" class="scene-host" data-composition-id="step-5a-live" data-composition-src="compositions/step-5a-live.html" data-start="70.6" data-duration="3.0" data-track-index="2" data-track-kind="graphics" data-width="1920" data-height="914"></div>
+
+    <div id="step-5b-edit" class="scene-host" data-composition-id="step-5b-edit" data-composition-src="compositions/step-5b-edit.html" data-start="73.6" data-duration="12.4" data-track-index="2" data-track-kind="graphics" data-width="1920" data-height="914"></div>
+
+    <!-- Micro-transiciones entre pasos -->
+    <div id="transitions" class="transition-host" data-composition-id="transitions" data-composition-src="compositions/transitions.html" data-start="14.2" data-duration="71.8" data-track-index="4" data-track-kind="graphics" data-width="1920" data-height="914"></div>
+
+    <!-- Subtítulos -->
+    <div id="captions-1" class="caption-host" data-composition-id="captions-1" data-composition-src="compositions/captions-1.html" data-start="14.2" data-duration="7.8" data-track-index="3" data-track-kind="captions" data-width="1920" data-height="914"></div>
+
+    <div id="captions-2" class="caption-host" data-composition-id="captions-2" data-composition-src="compositions/captions-2.html" data-start="22" data-duration="11.433" data-track-index="3" data-track-kind="captions" data-width="1920" data-height="914"></div>
+
+    <div id="captions-3" class="caption-host" data-composition-id="captions-3" data-composition-src="compositions/captions-3.html" data-start="33.433" data-duration="11.1" data-track-index="3" data-track-kind="captions" data-width="1920" data-height="914"></div>
+
+    <div id="captions-4" class="caption-host" data-composition-id="captions-4" data-composition-src="compositions/captions-4.html" data-start="44.55" data-duration="14.0" data-track-index="3" data-track-kind="captions" data-width="1920" data-height="914"></div>
+
+    <div id="captions-5" class="caption-host" data-composition-id="captions-5" data-composition-src="compositions/captions-5.html" data-start="58.55" data-duration="12.05" data-track-index="3" data-track-kind="captions" data-width="1920" data-height="914"></div>
+
+    <div id="captions-6" class="caption-host" data-composition-id="captions-6" data-composition-src="compositions/captions-6.html" data-start="70.6" data-duration="6.3" data-track-index="3" data-track-kind="captions" data-width="1920" data-height="914"></div>
+
+    <div id="captions-7" class="caption-host" data-composition-id="captions-7" data-composition-src="compositions/captions-7.html" data-start="76.9" data-duration="9.1" data-track-index="3" data-track-kind="captions" data-width="1920" data-height="914"></div>
+
+    <!-- Cierre editorial -->
+    <div id="outro-captions" class="caption-host" data-composition-id="outro-captions" data-composition-src="compositions/outro-captions.html" data-start="86" data-duration="10.8" data-track-index="3" data-track-kind="captions" data-width="1920" data-height="914"></div>
+    <div id="outro" class="scene-host" data-composition-id="outro" data-composition-src="compositions/outro.html" data-start="86.0" data-duration="10.8" data-track-index="2" data-track-kind="graphics" data-width="1920" data-height="914"></div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const mainTl = gsap.timeline({ paused: true });
+    mainTl.set({}, {}, 96.8);
+    window.__timelines["main"] = mainTl;
+  </script>
+</body>
+</html>

@@ -5,3 +5,9 @@ data/linkedin-posts-extended.json
 *.zip
 .obsidian/workspace.json
 .obsidian/workspace-mobile.json
+
+# Videos y audios pesados de producción (se conservan en local, no en GitHub Pages)
+content/**/assets/recordings/
+content/**/assets/*.mp4
+content/**/assets/video-proyecto/assets/*.mp4
+content/**/assets/video-proyecto/assets/*.wav

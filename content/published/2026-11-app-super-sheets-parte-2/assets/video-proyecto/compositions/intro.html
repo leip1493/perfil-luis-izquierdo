@@ -1,0 +1,184 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: "Inter", sans-serif;
+      background: #080b09;
+    }
+    .bg-clip {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    .bg {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 914px;
+      object-fit: cover;
+      transform-origin: 52% 42%;
+    }
+    .bg-veil {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(1180px 760px at 24% 34%, rgba(9, 13, 11, 0.18), rgba(8, 11, 9, 0.62) 74%),
+        linear-gradient(102deg, rgba(7, 10, 8, 0.78) 0%, rgba(7, 10, 8, 0.4) 48%, rgba(7, 10, 8, 0.72) 100%);
+    }
+    .card-wrap {
+      position: absolute;
+      left: 128px;
+      top: 104px;
+      width: 1090px;
+    }
+    .card {
+      padding: 40px 54px 38px;
+      border-radius: 30px;
+      background: linear-gradient(158deg, rgba(18, 27, 22, 0.94) 0%, rgba(10, 15, 12, 0.92) 100%);
+      border: 1px solid rgba(141, 184, 154, 0.3);
+      box-shadow:
+        0 44px 110px rgba(0, 0, 0, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.07);
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 9px 20px 9px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(141, 184, 154, 0.42);
+      background: rgba(141, 184, 154, 0.1);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: #a8cfb5;
+    }
+    .eyebrow .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #8db89a;
+      box-shadow: 0 0 12px 2px rgba(141, 184, 154, 0.55);
+    }
+    .title {
+      margin-top: 26px;
+      font-size: 76px;
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.025em;
+      color: #f3f8f4;
+      text-wrap: balance;
+    }
+    .title .accent {
+      color: #a8cfb5;
+    }
+    .chips {
+      display: flex;
+      gap: 12px;
+      margin-top: 30px;
+    }
+    .chip {
+      padding: 9px 20px;
+      border-radius: 999px;
+      border: 1px solid rgba(237, 241, 238, 0.16);
+      background: rgba(237, 241, 238, 0.06);
+      font-size: 25px;
+      font-weight: 500;
+      color: #dfe9e2;
+      white-space: nowrap;
+    }
+    .chip .mono {
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 700;
+      color: #a8cfb5;
+    }
+    .note {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 30px;
+      padding-top: 26px;
+      border-top: 1px solid rgba(237, 241, 238, 0.1);
+      font-size: 26px;
+      line-height: 1.35;
+      color: #b8c8be;
+    }
+    .note .tick {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #d8b374;
+      flex: none;
+    }
+    .signature {
+      margin-top: 14px;
+      font-size: 25px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      color: #90a397;
+    }
+    .signature .sep {
+      color: #4f6659;
+      margin: 0 6px;
+    }
+    .end-veil {
+      position: absolute;
+      inset: 0;
+      z-index: 40;
+      background: #070a08;
+      opacity: 0;
+    }
+  </style>
+
+  <div id="root" data-composition-id="intro" data-width="1920" data-height="914">
+    <div id="in-bg-clip" class="clip bg-clip" data-start="0" data-duration="14.2" data-layout-ignore>
+      <img id="in-bg" class="bg" src="assets/bg-intro.png" alt="Dashboard sobre Google Sheets, desenfocado" />
+      <div class="bg-veil"></div>
+      <div id="in-end-veil" class="end-veil"></div>
+    </div>
+
+    <div id="in-card-clip" class="clip card-wrap" data-start="0.22" data-duration="13.55" data-hold data-layout-allow-occlusion>
+      <div id="in-card" class="card">
+        <div id="in-eyebrow" class="eyebrow"><span class="dot"></span>Demo en vivo · Parte 2</div>
+        <div id="in-title" class="title">
+          De un <span class="accent">Google Sheet</span> a una web app con <span class="accent">IA</span>
+        </div>
+        <div id="in-chips" class="chips">
+          <span id="in-chip-1" class="chip">Google Sheets</span>
+          <span id="in-chip-2" class="chip">Apps Script</span>
+          <span id="in-chip-3" class="chip"><span class="mono">$0</span> servidores</span>
+        </div>
+        <div id="in-note" class="note"><span class="tick"></span>Enlace a las slides en el primer comentario</div>
+        <div id="in-signature" class="signature">
+          Luis Izquierdo<span class="sep">·</span>Senior Software Engineer
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo("#in-bg", { scale: 1.07 }, { scale: 1.0, duration: 14.2, ease: "none" }, 0);
+
+    tl.fromTo("#in-card", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.62, ease: "power3.out" }, 0.22);
+    tl.fromTo("#in-eyebrow", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.34);
+    tl.fromTo("#in-title", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.46);
+
+    ["#in-chip-1", "#in-chip-2", "#in-chip-3"].forEach((sel, i) => {
+      tl.fromTo(sel, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.34, ease: "power2.out" }, 1.05 + i * 0.1);
+    });
+    tl.fromTo("#in-note", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 1.5);
+    tl.fromTo("#in-signature", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 1.72);
+
+    tl.to("#in-card", { opacity: 0, y: -14, duration: 0.34, ease: "power2.in" }, 13.68);
+    tl.to("#in-bg", { opacity: 0.4, duration: 0.34, ease: "power2.in" }, 13.68);
+    tl.fromTo("#in-end-veil", { opacity: 0 }, { opacity: 0.92, duration: 0.3, ease: "power2.in" }, 13.9);
+
+    window.__timelines["intro"] = tl;
+  </script>
+</template>

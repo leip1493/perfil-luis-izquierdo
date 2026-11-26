@@ -6,7 +6,8 @@ Backlog rápido de temas, series y ganchos para LinkedIn y artículos. Cuando un
 
 - **App del súper con Google Sheets + IA — Parte 3** (`content/drafts/app-super-sheets-parte-3/`)
   - Qué pasa cuando copiar y pegar código en Apps Script deja de escalar.
-  - Paso a flujo dev-friendly: `clasp`, archivos modulares, TDD y agente de código con reglas definidas al que se le dictan cambios.
+  - Flujo dev-friendly sin perder lo de Google ($0, Sheets, auth): `clasp`, módulos (`src/` + `dev/`), vista previa local, TDD (`node:test`), Husky/CI, entornos `/dev` → `/exec` sin cambiar URL y agente con reglas definidas.
+  - Enfoque inclusivo para perfiles no-dev + repositorio plantilla como CTA.
 
 ## Backlog
 

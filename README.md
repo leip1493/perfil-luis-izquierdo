@@ -53,10 +53,15 @@ perfil-luis-izquierdo/
 │       ├── profile.jpg
 │       └── favicon.png
 ├── data/
-│   ├── profile.json              # Perfil público curado
-│   └── activity.json             # 8 publicaciones propias
+│   ├── profile.json              # Perfil público curado (fuente de verdad)
+│   └── activity.json             # Publicaciones propias (fuente de verdad)
+├── content/
+│   ├── IDEAS.md                  # Backlog de ideas y series
+│   ├── drafts/                   # Borradores de posts, slides y assets
+│   └── published/                # Archivo de contenido ya publicado
+├── AGENTS.md                     # Convenciones del repo y flujo editorial
 └── scripts/
-    ├── build_standalone.py       # Regenera la versión todo-en-uno
+    ├── build_standalone.py       # Sincroniza data/*.json -> assets/*-data.js y regenera la versión todo-en-uno
     └── publish.sh                # Genera, hace commit y sube a GitHub Pages
 ```
 

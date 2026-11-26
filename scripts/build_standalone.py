@@ -1,13 +1,33 @@
 #!/usr/bin/env python3
-"""Genera una versión todo-en-uno del portfolio completo."""
+"""Sincroniza data/*.json -> assets/*-data.js y genera la versión todo-en-uno del portfolio."""
 import base64
+import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+
+
+def sync_data_js(json_path: Path, js_path: Path, global_name: str) -> str:
+    data = json.loads(json_path.read_text(encoding="utf-8"))
+    serialized = json.dumps(data, ensure_ascii=False, indent=2)
+    content = f"window.{global_name} = {serialized};\n"
+    js_path.write_text(content, encoding="utf-8")
+    return content
+
+
+profile_js = sync_data_js(
+    ROOT / "data" / "profile.json",
+    ROOT / "assets" / "profile-data.js",
+    "PROFILE_DATA",
+)
+activity_js = sync_data_js(
+    ROOT / "data" / "activity.json",
+    ROOT / "assets" / "activity-data.js",
+    "ACTIVITY_DATA",
+)
+
 html = (ROOT / "portfolio.html").read_text(encoding="utf-8")
 css = (ROOT / "assets" / "styles.css").read_text(encoding="utf-8")
-profile_js = (ROOT / "assets" / "profile-data.js").read_text(encoding="utf-8")
-activity_js = (ROOT / "assets" / "activity-data.js").read_text(encoding="utf-8")
 app_js = (ROOT / "assets" / "app.js").read_text(encoding="utf-8")
 
 photo = ROOT / "assets" / "images" / "profile.jpg"

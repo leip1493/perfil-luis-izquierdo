@@ -1,5 +1,27 @@
 window.ACTIVITY_DATA = [
   {
+    "id": "activity-18",
+    "type": "post",
+    "author": "Luis Izquierdo",
+    "authorRole": "Senior Software Engineer",
+    "dateLabel": "26 nov 2026",
+    "title": "Demo en vivo: de Google Sheets a web app con Apps Script + IA",
+    "summary": "Video demostrativo paso a paso (en menos de 2 minutos) creando y publicando un dashboard web sobre Google Sheets sin servidores ni costos.",
+    "tags": [
+      "GoogleSheets",
+      "AppsScript",
+      "LowCode",
+      "IA",
+      "Productividad"
+    ],
+    "reactions": null,
+    "comments": null,
+    "reposts": null,
+    "impressions": null,
+    "link": "https://lnkd.in/p/e5nRufnm",
+    "content": "En el post anterior te dejé las slides para convertir un Google Sheet en una web app con IA. Aquí te muestro el proceso real en vivo, clic por clic, en menos de 2 minutos.\nLo que más me gusta de este enfoque: editas una celda en tu hoja de cálculo, recargas la app y el dashboard se actualiza al instante, sin servidores y sin pagar un dólar.\nEn el primer comentario te dejo el enlace al post con las slides, los prompts exactos para copiar y pegar, y la demo funcionando. 👇\n¿Te animarías a armar tu primera mini app sobre un Google Sheet?\n#GoogleSheets #AppsScript #LowCode #IA #Productividad"
+  },
+  {
     "id": "activity-01",
     "type": "post",
     "author": "Luis Izquierdo",

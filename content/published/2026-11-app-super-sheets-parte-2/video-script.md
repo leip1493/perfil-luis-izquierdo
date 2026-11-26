@@ -2,8 +2,9 @@
 title: "Guión de Video Corto — Web app sobre Google Sheets + IA en 60s"
 series: "App del súper con Google Sheets + IA"
 part: 2
-status: draft
-format: "short-video-60s"
+status: published
+published_at: "2026-11-26"
+format: "video-demo-96s"
 ---
 
 # Guión de video corto (45–60 segundos)

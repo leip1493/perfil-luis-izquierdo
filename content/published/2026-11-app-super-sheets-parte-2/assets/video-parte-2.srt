@@ -1,0 +1,84 @@
+1
+00:00:00,250 --> 00:00:05,250
+Hola, ¿cómo están? Video complementario al post que subí hace poco.
+
+2
+00:00:05,300 --> 00:00:10,100
+El enlace a las slides está en el primer comentario.
+
+3
+00:00:10,200 --> 00:00:13,750
+En vivo: cómo se arma la app con Apps Script.
+
+4
+00:00:14,320 --> 00:00:19,220
+Este dashboard corre sobre un Google Sheet, sin servidores y sin pagar un dólar.
+
+5
+00:00:19,350 --> 00:00:21,800
+Mira lo rápido que se arma con IA.
+
+6
+00:00:22,100 --> 00:00:27,300
+Partes de una hoja normal de Sheets. Si no tienes datos, le pides a la IA una tabla de prueba.
+
+7
+00:00:27,650 --> 00:00:33,050
+Abres Extensiones → Apps Script. Ya viene incluido, no instalas nada.
+
+8
+00:00:33,553 --> 00:00:37,903
+Le pasas tus columnas a la IA y pegas Code.gs para leer tu hoja.
+
+9
+00:00:38,633 --> 00:00:44,483
+Luego creas index.html con el diseño y pegas el código del dashboard.
+
+10
+00:00:44,570 --> 00:00:47,470
+Haz clic en Implementar → Nueva implementación.
+
+11
+00:00:47,500 --> 00:00:51,050
+Elige Aplicación web y define quién puede abrirla.
+
+12
+00:00:51,530 --> 00:00:55,850
+Escribe una descripción y cambia el acceso a Cualquier usuario.
+
+13
+00:00:58,680 --> 00:01:02,530
+Clic en Implementar. Google te pide autorizar el acceso una vez.
+
+14
+00:01:02,900 --> 00:01:04,750
+Solo aceptas y la app queda lista.
+
+15
+00:01:04,870 --> 00:01:08,870
+Y te entrega la URL para compartir tu dashboard.
+
+16
+00:01:10,700 --> 00:01:12,450
+Abres el enlace y ya está en vivo.
+
+17
+00:01:13,620 --> 00:01:16,870
+¿Quieres cambiar un dato? Lo editas en tu Google Sheet.
+
+18
+00:01:17,050 --> 00:01:19,450
+Recargas y el total se actualiza al instante.
+
+19
+00:01:20,050 --> 00:01:26,000
+Filtra y todo se recalcula solo. En la Parte 3: código modular, TDD y agentes.
+
+20
+00:01:26,150 --> 00:01:30,300
+Eso era lo que quería mostrarles. ¡Gracias por llegar hasta aquí!
+
+21
+00:01:30,350 --> 00:01:35,950
+En el primer comentario están las slides y los prompts. Nos vemos en la Parte 3.
+

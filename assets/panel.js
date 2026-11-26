@@ -267,6 +267,33 @@
     `).join("");
   }
 
+  function formatActivityDate(post) {
+    if (post.publishedAt) {
+      const m = String(post.publishedAt).match(/^(\d{4})-(\d{2})-(\d{2})$/);
+      if (m) {
+        const pub = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+        const now = new Date();
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        const diffDays = Math.round((today - pub) / 86400000);
+        if (diffDays === 0) return "Hoy";
+        if (diffDays === 1) return "Ayer";
+        if (diffDays > 1 && diffDays < 7) return `Hace ${diffDays} días`;
+        if (diffDays >= 7 && diffDays < 30) {
+          const weeks = Math.floor(diffDays / 7);
+          return weeks === 1 ? "Hace 1 semana" : `Hace ${weeks} semanas`;
+        }
+        return post.dateLabel || pub.toLocaleDateString("es", { day: "numeric", month: "short", year: "numeric" });
+      }
+    }
+    const raw = String(post.dateLabel || "").trim();
+    if (!raw) return "";
+    if (/^(hace\b|hoy\b|ayer\b)/i.test(raw)) return raw;
+    if (/^\d+\s+(min|hora|horas|día|días|semana|semanas|mes|meses|año|años)\b/i.test(raw)) {
+      return `Hace ${raw}`;
+    }
+    return raw;
+  }
+
   function renderActivity() {
     const container = $("#activityGrid");
     if (!container) return;
@@ -281,9 +308,15 @@
         <article class="activity-card">
           <div>
             <div class="activity-meta">
-              <span>Hace ${escapeHtml(post.dateLabel)}</span>
+              <span>${escapeHtml(formatActivityDate(post))}</span>
               <span>LinkedIn</span>
             </div>
+            ${post.thumbnail ? `
+              <a class="activity-thumb" href="${escapeHtml(post.link)}" target="_blank" rel="noopener noreferrer" aria-label="Abrir ${escapeHtml(post.title)} en LinkedIn">
+                <img src="${escapeHtml(post.thumbnail)}" alt="${escapeHtml(post.title)}" loading="lazy">
+                ${post.mediaBadge ? `<span class="activity-thumb-badge">${escapeHtml(post.mediaBadge)}</span>` : ""}
+              </a>
+            ` : ""}
             <h3 class="activity-title">${escapeHtml(post.title)}</h3>
             <p class="activity-summary">${escapeHtml(post.summary)}</p>
           </div>

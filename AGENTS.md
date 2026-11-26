@@ -33,6 +33,15 @@ Repositorio único del portfolio público (GitHub Pages en `main` / raíz) y del
 - Estilo claro, directo, en primera persona, sin humo ni buzzwords vacíos.
 - Enfoque práctico basado en experiencia real (arquitectura, TDD, backend, IA agéntica con criterio de ingeniería).
 - Estructurar posts con gancho inicial concreto, puntos escaneables y cierre con aprendizaje real o pregunta abierta.
+- En `post.md`, incluir el copy final listo para LinkedIn en texto plano (sin sintaxis Markdown como `**` o backticks, idealmente dentro de un bloque `text`) para preservar saltos de línea al copiar y pegar.
+
+## Estilo de presentaciones y carruseles (LinkedIn)
+
+- **Identidad visual consistente:** mantener el estilo **verde grafito** del portfolio (`assets/panel.css`) y tomar `content/published/2026-11-app-super-sheets-parte-2/assets/slides.html` como plantilla/referencia base.
+- **Formato:** vertical 4:5 (`1080×1350px` por slide) exportable a PDF con `@page`, pie con `Luis Izquierdo · Senior Software Engineer` y numeración (`01/0N`).
+- **Legibilidad en teléfono (prioritario):** diseñar pensando primero en lectura desde el celular. Usar **tipografía más grande** que en la Parte 2:
+  - Evitar textos pequeños en tarjetas, notas al pie, etiquetas o callouts (apuntar a mínimo `24–28px` en cuerpo/tarjetas y `18–20px` en badges/etiquetas sobre lienzo `1080×1350px`).
+  - Priorizar menos texto por slide y mayor tamaño de letra + capturas con zoom en lo importante.
 
 ## Reglas de build y repositorio
 

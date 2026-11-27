@@ -18,10 +18,13 @@ Repositorio único del portfolio público (GitHub Pages en `main` / raíz) y del
 ## Flujo de contenido
 
 1. Capturar la idea en `content/IDEAS.md`.
-2. Crear carpeta en `content/drafts/<slug>/` con `post.md` (y `slides.md` / `assets/` si aplica).
+2. Crear carpeta en `content/drafts/<slug>/` con `post.md` (y `slides.md`, `video-script.md`, `video-post.md` o `assets/` según aplique).
+   - Si hay video complementario al carrusel, mantener su copy separado en `video-post.md` (texto plano corto enfocado al demo + enlaces en el primer comentario).
+   - Para grabar, editar, renderizar y publicar videos técnicos con HyperFrames, seguir el runbook en `.agents/skills/linkedin-video-production/SKILL.md`.
 3. Al publicar en LinkedIn:
    - Mover la carpeta a `content/published/YYYY-MM-<slug>/`.
-   - Agregar la publicación en `data/activity.json` (preferiblemente con el link directo al post).
+   - Marcar `status: published` y `published_at: "YYYY-MM-DD"` en `video-script.md` y `video-post.md` (cuando aplique).
+   - Agregar la publicación en `data/activity.json` con el link directo al post, `publishedAt` (`YYYY-MM-DD` para fechas relativas dinámicas), `thumbnail` (ruta relativa a imagen 16:9) y `mediaBadge` (ej. `"Video demo"`, `"Carrusel"`).
    - Ejecutar `python3 scripts/build_standalone.py` para sincronizar `assets/activity-data.js` y `perfil-luis-izquierdo.html`.
 
 ## Tono y estilo editorial
@@ -48,3 +51,4 @@ Repositorio único del portfolio público (GitHub Pages en `main` / raíz) y del
 - Editar siempre `data/*.json`, nunca `assets/*-data.js` ni `perfil-luis-izquierdo.html`.
 - Ejecutar `python3 scripts/build_standalone.py` tras cualquier cambio en `data/`, `portfolio.html` o `assets/`.
 - Este repositorio es público: no guardar secretos, credenciales ni datos privados sensibles.
+- No versionar binarios pesados de video/audio (`.mp4`, `.wav`, `recordings/`); conservar en Git solo el proyecto editable de HyperFrames, scripts reproducibles, miniaturas (`.jpg`/`.png`) y subtítulos (`.srt`).
